@@ -290,7 +290,7 @@ plugins:
   - jemoji
   - jekyll-include-cache
   - jekyll-org
-  - rouge
+  - pygments.rb
 
 # mimic GitHub Pages with --safe
 whitelist:

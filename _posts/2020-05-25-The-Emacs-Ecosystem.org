@@ -1,0 +1,157 @@
+#+TITLE: A Simple Static Blog, and the State of the Emacs Ecosystem
+#+TAGS: Emacs
+
+On this sunny, long weekend, I decided to play around with static site generation for a new blogging platform.
+
+I have a Wordpress site set up: I don't use it enough to justify the resources.
+Plus, I found its new "blocks" WYSIWYG editor wasn't great with links and code.
+
+I'd love to use some form of markup, and avoid spending tons of time styling.
+Those requirements lead me to Jekyll.
+
+** Jekyll and Org
+
+I've been an Emacs user for the better part of 4 years, and still use Org mode
+for a handful of tasks. I love the in-editor code snippet styling, simple LaTeX,
+and ease of exporting to other formats (PDF was quite useful in college).
+
+I set out with a simple goal: 
+  - Write blog posts in org mode.
+  - Publish them with Jekyll.
+
+This should not be a challenging problem: Org has been around for a while,
+Jekyll has been around for a while. Surely a plugin exists to tackle this exact
+task. Or at worst, go from Org->Markdown (even Org->HTML), and let Jekyll take
+it from there.
+
+** A breeze through Jekyll
+
+If you've heard of/used Jekyll before, here's a brief intro, relative to what
+I'll be touching.
+
+Jekyll generates a cohesive, static site from various markup templates. I'm
+using it for a blog, but it offers colections, several templating/layout
+options, and more.
+
+For my use case, markup goes in ~_posts~, and is added to a list of posts on the
+home page. Example:
+
+#+BEGIN_SRC
+// _posts/2020-05-24-Hello-world.md
+---
+title:  "Welcome to Jekyll!"
+date:   2020-05-24 17:33:51 -0400
+categories:
+  - category1 
+  - category2
+tags: 
+  - tag1
+  - tag2
+---
+
+Hello world!
+#+END_SRC
+
+On ~example.com~, this will generate ~http://example.com/2020-05-24-Hello-world~
+with the requested tags + content.
+
+** The state of Org+Jekyll support, and Org in general
+
+In traditional Emacs fashion, you have your pick of solutions. [[https://orgmode.org/worg/org-blog-wiki.html][Worg lists a
+majority of popular ones.]] Many looked out of date or unmaintained.
+
+Using that list + some searching, I had a handful of projects to try out.
+
+_All of them fell short_, for various reasons, which suprised me & altered my
+view of this ecosystem. I'd like to discuss each solution & the problems I had
+with it, to better understand gaps and issues.
+
+*** [[https://github.com/eggcaker/jekyll-org][jekyll-org]]
+
+~jekyll-org~ is a Jekyll plugin, allowing Jekyll to treat ~.org~ files as any
+other markup file, and auto-generate pages from it.
+
+This means Jekyll handles everything: no exporting through Emacs necessary.
+Sounds great! Less I need to worry about.
+
+I tried adding a code snippet. Org indicates a code block using the following
+format.
+
+#+BEGIN_SRC
+##+BEGIN_SRC markdown
+import pprint
+pprint.pprint("Hello world!")
+##+END_SRC
+#+END_SRC
+
+With only one ~#~ on each line. 
+
+In my editor, syntax highlighting is all honky dory. Syntax highlighting is
+borderline essential for a tech blog: I post various code snippets so folks can
+follow along, so it's a must-for the rendered output.
+
+For one blog entry, this snippet gave me some hassle (ARM assembly):
+
+#+BEGIN_SRC
+// A ==> B
+MOV R3, #0x2 // R3 Button mask
+MOV R4, #0x3 // R4 EOR mask
+AND R5, R6, R3 // Extract desired values
+#+END_SRC
+
+This rendered as:
+
+#+BEGIN_SRC html
+<div class="highlight"><pre><span></span><span class="err">//</span> <span class="nf">A</span> <span class="err">==&gt;</span> <span class="no">B</span>
+<span class="nf">MOV</span> <span class="no">R3</span><span class="p">,</span> <span class="c">#0x2 // R3 Button mask</span>
+<span class="no">MOV</span> <span class="no">R4</span><span class="p">,</span> <span class="c">#0x3 // R4 EOR mask</span>
+<span class="no">AND</span> <span class="no">R5</span><span class="p">,</span> <span class="no">R6</span><span class="p">,</span> <span class="no">R3</span> <span class="err">//</span> <span class="no">Extract</span> <span class="no">desired</span> <span class="no">values</span>
+#+END_SRC
+
+Notice how each token is given a ~span~ tag, so it can be identified and highlighted individually.
+
+...Why does the second ~MOV~ instruction have a different class than the first?
+Why is a comment (~//~) given an ~err~ class, but the first "token" in the
+comment (~A~) is a seemingly valid ~nf~?
+
+Clearly something under the hood was weird. This begs the question: if it's not
+using Emacs, what does it use?
+
+**** [[https://github.com/wallyqs/org-ruby][org-ruby]]
+
+To avoid running Emacs every time Jekyll publishes, ~jekyll-org~ uses
+~org-ruby~. This library + standalone program handles conversion from Org to a
+handful of popular formats. It's used by GitHub and GitLab to render ~.org~
+files, too.
+
+~org-ruby~ isn't feature complete, which isn't a surprise. The Org manual is
+*[[https://orgmode.org/manual/][big]]*, and it's the closest thing Org has to a specification. This makes the
+_[[https://www.w3.org/2005/10/Process-20051014/tr.html#cfr][two interoperable implementations]]_ rule tough, much less a modest subset such
+as ~org-ruby~.
+
+~jekyll-org~ supports syntax highlighting with [[https://github.com/tmm1/pygments.rb][pygments.rb]], a Ruby library.
+(Note: Jekyll no longer uses it under the hood, and instead uses [[http://rouge.jneen.net/][Rouge]]. I'm not
+sure if this will stop working in a newer version of Jekyll.)
+
+Under the hood, syntax highlighting + exporting to HTML is a tricky problem. You
+need to know something about the target language in order to highlight it
+properly. You can't get away with the [[https://www.masteringemacs.org/article/highlighting-by-word-line-regexp][horrible regexp hack Emacs uses]] to
+accomplish syntax highlighting, when you're only working with HTML+CSS.
+
+Since I'm essentially using two Org implementations, there will be discrepancies
+between what I see & what's actually rendered. And you can forget about
+[Evaluating Code Blocks](https://orgmode.org/manual/Evaluating-Code-Blocks.html)
+to show code output alongside source. So I can't use any advanced Org features
+with this library.
+
+*** Using Emacs to export Org as HTML
+
+Org->Html, doesn't properly do syntax highlighting
+https://orgmode.org/worg/org-tutorials/org-jekyll.html
+
+*** Using Emacs to export Org as Markdown
+
+Org->Markdown, doesn't do syntax highlighting, doesn't do tags
+http://www.pwills.com/post/2019/09/24/blogging-in-org.html
+
+Each being broken, outdated, or inconvenient to some degree.

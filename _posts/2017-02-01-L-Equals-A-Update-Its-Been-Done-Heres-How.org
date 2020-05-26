@@ -16,7 +16,7 @@ code. Modifying the injected code to model L=A was simple.
 - Open ~injector/source/injected.s~ in your favorite text editor. Remove the
   following snippet:
 
-#+BEGIN_SRC asm
+#+BEGIN_SRC
 // A ==> B
 MOV R3, #0x2 // R3 Button mask
 MOV R4, #0x3 // R4 EOR mask
@@ -57,7 +57,7 @@ EOREQ R2, R2, R4
 
 - Replace it with:
 
-#+BEGIN_SRC asm
+#+BEGIN_SRC
 // A ==> L
 MOV R3, #0x80
 LSL R3, R3, #2
