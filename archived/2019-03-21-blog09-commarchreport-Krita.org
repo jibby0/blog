@@ -1,0 +1,48 @@
+#+TITLE: blog09/commarchreport: Krita
+#+TAGS: hfoss
+
+KDE has been going strong for more than 20 years: it was no surprise their development practices were so fluid.
+
+Even so, there were a few surprising things in our analysis. You can find the full report at our Github repo: [[https://github.com/jibby0/commarch-krita]]
+
+** Author Knowledge
+
+Running Git by a Bus v2 showed that [[https://github.com/jibby0/commarch-krita/blob/master/gbabv2/author_tot_risk.svg][two main contributors]] hold a majority of
+codebase knowledge. This is certainly better than one, and both of them have
+been around a while (10-15 years).
+
+Together, they hold about 60% of the knowledge. However, the rest of it seems
+pretty evenly distributed! I know [[https://kde.org/code-of-conduct/][KDE is inclusive]] and has [[https://community.kde.org/Get_Involved/development][streamlined their
+developer onboarding process]].
+
+All in all, not terrible. Should the both of them fall off the face of the
+earth, hopefully the other 40% could manage.
+
+** Patch submission process
+
+The process for creating and submitting a patch was documented, but I couldn’t
+find any information on who exactly could approve them. I think anyone with the
+“dev” status can, which you achieve after 3 patches.
+
+Still, not having a public, formal process, isn’t the greatest. Or maybe I just
+can’t find it.
+
+** Callaway Coefficient of Fail
+
+The only places Krita failed in this test were project size and build tools.
+Krita is (understandably) huge: it relies heavily on Qt, and has plenty of
+features, such as supporting both bitmap and vector images. It makes sense that
+the repo would be large, compressed or uncompressed. I believe this is a factor
+that should be either removed entirely, or at least updated to modern standards.
+
+Krita uses CMake: it lost points for not using GNU Make. However, CMake works a lot better with C++ projects, and writing configs is much less of a pain than writing Makefiles. Since it’s open source and a popular standard, I see no problem with using an alternative build tool.
+
+** Other than that... great!
+
+There were only a few outstanding issues with Krita’s development process, and
+none of them seemed detrimental. I’ve thought about contributing to the KDE
+project: mostly their desktop environment, as I use it daily. The modularity is
+wonderful, and I would love to see it improve.
+
+Since nearly all KDE projects follow a similar development flow, it’s definitely
+pushed me in a positive direction.

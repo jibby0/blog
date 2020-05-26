@@ -1,0 +1,68 @@
+#+TITLE: blog04/litreview2: Eghbal and npm
+#+TAGS: hfoss
+
+
+I remember taking Mechanics of Programming in my second semester of RIT. When
+looking at compiled C code, our instructor asserted: the compiler is smarter
+than me. I am not, by any means, smarter than it. We stand on the shoulders of
+giants: tons of research, optimization, and formalization went into building
+these toolchains.
+
+I was always amazed that such tools were freely available, to use and to learn
+from. But I hadn’t thought about how they got here: what ideas, people, and
+resources made them a reality.
+
+** Where does it come from?
+
+I guess I’m not alone in that trend. Common practice today is to pull down the
+code, or build, of some other individual, not thinking too much about how it got
+there or what keeps it there. Node (and most recently, Docker) are great
+examples of this mentality. Docker encourages pulling prebuilt images without
+much verification. Any typo in the image name, or namejacking that a malicious
+actor could perform, would seriously impact the ecosystem, especially with
+growing concerns over container security.
+
+Trust itself is a difficult subject, and can often result in an unproductive
+rabbit hole. But pulling from essentially random sources has proven to be
+dangerous, or risky at the very least. It’s good to encourage thought, involving
+where that infrastructure comes from. What is the Docker hub went down? How many
+malicious images are typos, that are running on company machines? What could one
+small change to a popular Node package mean for a large portion of the web?
+
+** The mentality behind the culture
+
+The author discusses how some open source project leads just kinda got thrown
+into it when their project “took off”. This highlights two very interesting
+things about the current ecosystem: most notably, the ability of the maintainers
+and adopters.
+
+Maintainers are likely not experts in their domain: within the domain they work,
+they saw a problem, and developed a solution. This solution might be for
+themselves or a community/business/other group, but likely wasn’t made to change
+the domain. If it does change the domain, what are the lasting consequences? How
+fit is that individual/group to oversee development of a popular project?
+
+Adopters are likely to adopt when a project solves a solution well.
+Fragmentation is a big problem, for which Docker was a nice solution. Instead of
+worrying about versioning of libraries and setting up various tools, a developer
+could ship their project in a ready-to-go container. The potential security
+issues with this solution were overlooked, because the project itself was so
+convenient, and (otherwise) solved the problem so well. If a user is careful to
+check their sources and be wary of typos, they will likely be fine. But that
+highlights a architectural flaw that will likely never be fixed, because the
+solution is already so widely adopted.
+
+This asks another question: who’s responsibility is it to voice these concerns?
+Is there any force that could encourage boycotting a project because of these
+concerns? There are a handful of security experts that won’t touch containers,
+and a handful of communities that loathe new technologies like Systemd: while
+it’s a solution, many insist it’s not the right solution.
+
+** Terms, terms, terms
+
+As a little aside, I liked the short discussion on the importance of the word
+“fork”. How Github uses it to encourage collaboration and community. Whereas
+originally, the word fork would inspire a drastic change in ideas (XEmacs is a
+fork of GNU Emacs, inspired by the slowness of the FSF to accept C++ dev tools),
+it instead is part of a process for contributing to upstream. The history of
+these words and ecosystems is always interesting.

@@ -62,7 +62,7 @@ majority of popular ones.]] Many looked out of date or unmaintained.
 
 Using that list + some searching, I had a handful of projects to try out.
 
-_All of them fell short_, for various reasons, which suprised me & altered my
+_All of them fell short_, for various reasons, which surprised me & altered my
 view of this ecosystem. I'd like to discuss each solution & the problems I had
 with it, to better understand gaps and issues.
 
@@ -78,7 +78,7 @@ I tried adding a code snippet. Org indicates a code block using the following
 format.
 
 #+BEGIN_SRC
-##+BEGIN_SRC markdown
+##+BEGIN_SRC python
 import pprint
 pprint.pprint("Hello world!")
 ##+END_SRC

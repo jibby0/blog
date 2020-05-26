@@ -1,0 +1,226 @@
+#+TITLE: blog03 – fun things with Git
+#+TAGS: hfoss
+
+As we were covering Git concepts in class, it reminded me of a mishap I dealt
+with not too long ago: a project I was working with had private keys committed
+to it! Thankfully this was not a public facing project, or a project many people
+were working on. However, those keys required removal from the project’s Git
+history. Accomplishing this was an interesting process.
+
+Since Git records all changes made to a project, both the adding and removing of
+the keys were permanently stored in Git commits. The keys had been removed, but
+GitLab was not happy about keys existing in a commit: anyone who closed the
+project could find them in the revisions!
+
+Solving a mistake like this requires rewriting Git history, sadly. In this case,
+it means removing commits it expects to be there. Git isn’t terribly happy about
+that.
+
+If history is changed, anyone currently working on the project must pull in the
+new history. That may be incompatible with commits they’ve made relying on the
+missing commits. In short, they have to start from scratch, or do some Git
+finagling themselves.
+
+** An Example
+
+So, what would something like this look like? Let’s say I made a repo with a few
+commits, and one of them included a secret, which I later noticed and removed:
+
+#+BEGIN_SRC
+$ mkdir foo
+
+$ cd foo
+
+$ git init
+Initialized empty Git repository in /home/josh/foo/.git/
+
+$ echo 'contents1' > file1
+
+$ git add file1
+
+$ git commit -m 'add file1'
+[master (root-commit) 55a4659] add file1
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file1
+
+$ echo 'secret1' > secretfile1
+
+$ git add secretfile1
+
+$ echo 'contents2' > file2
+
+$ git commit -m 'add file2 (and secrets by mistake!)'
+[master 652ea46] add file2 (and secrets by mistake!)
+ 1 file changed, 1 insertion(+)
+ create mode 100644 secretfile1
+
+$ echo 'contents3' > file3
+
+$ git add file3
+
+$ git commit -m 'add file3'
+[master 189c955] add file3
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file3
+
+$ # Oops! Let's just get rid of that key.
+
+$ git rm secretfile1
+rm 'secretfile1'
+
+$ git commit -m 'remove secret! all is good now (?)'
+[master 34e2e4f] remove secret! all is good now (?)
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 secretfile1
+#+END_SRC
+
+A look through the git log shows the secret.
+
+#+BEGIN_SRC
+$ git log -p
+
+commit 34e2e4f0c3f374a8053f9fb6e8788349e7549ef5 (HEAD -> master)
+Author: Josh
+Date:   Tue Feb 5 22:00:51 2019 -0500
+
+    remove secret! all is good now (?)
+
+diff --git a/secretfile1 b/secretfile1
+deleted file mode 100644
+index b4483bc..0000000
+--- a/secretfile1
++++ /dev/null
+@@ -1 +0,0 @@
+-secret1
+
+commit b01d530180f642e17e8056d2ef52b0e79f8ef073
+Author: Josh
+Date:   Tue Feb 5 21:59:32 2019 -0500
+
+    add file3
+
+diff --git a/file3 b/file3
+new file mode 100644
+index 0000000..1cb5d64
+--- /dev/null
++++ b/file3
+@@ -0,0 +1 @@
++contents3
+
+commit 5e2defe0d8e3ad9630276aed790f80f14454342a
+Author: Josh
+Date:   Tue Feb 5 21:59:22 2019 -0500
+
+    add file2 (and secrets by mistake!)
+
+diff --git a/file2 b/file2
+new file mode 100644
+index 0000000..6b46faa
+--- /dev/null
++++ b/file2
+@@ -0,0 +1 @@
++contents2
+diff --git a/secretfile1 b/secretfile1
+new file mode 100644
+index 0000000..b4483bc
+--- /dev/null
++++ b/secretfile1
+@@ -0,0 +1 @@
++secret1
+
+commit 55a4659cff0e57e7835306677dc2495691cc208f
+Author: Josh
+Date:   Tue Feb 5 21:53:06 2019 -0500
+
+    add file1
+
+diff --git a/file1 b/file1
+new file mode 100644
+index 0000000..a024003
+--- /dev/null
++++ b/file1
+@@ -0,0 +1 @@
++contents1
+#+END_SRC
+
+** A simple fix: filtering
+
+There’s a very helpful Git subcommand for situations like this: /index-filter/.
+This subcommand applies a command to a range of commits. In this case, we want
+to use a command that will remove our secret.
+
+#+BEGIN_SRC
+$ git filter-branch \
+>       --force \
+>       --index-filter 'git rm --cached --ignore-unmatch secretfile1' \
+>       --prune-empty \
+>       --tag-name-filter cat \
+>       -- --all
+
+Rewrite 5e2defe0d8e3ad9630276aed790f80f14454342a (2/4) (0 seconds passed, remaining 0 predicted)    rm 'secretfile1'
+Rewrite b01d530180f642e17e8056d2ef52b0e79f8ef073 (3/4) (0 seconds passed, remaining 0 predicted)    rm 'secretfile1'
+Rewrite aa3d8f23272de7962e5848ef54e0aab7727a0195 (4/4) (0 seconds passed, remaining 0 predicted)    
+Ref 'refs/heads/master' was rewritten
+#+END_SRC
+
+This will remove any instance of secretfile1 from the repository. A log check shows the commits are now nice and clean:
+
+#+BEGIN_SRC
+$ git log -p
+
+commit 7af827c0e920ad7094f9623aad96b511a8718f85 (HEAD -> master)
+Author: Josh
+Date:   Tue Feb 5 21:59:32 2019 -0500
+
+    add file3
+
+diff --git a/file3 b/file3
+new file mode 100644
+index 0000000..1cb5d64
+--- /dev/null
++++ b/file3
+@@ -0,0 +1 @@
++contents3
+
+commit ac5a0b859f1a87c0d5dde53e35278ad7308fa70c
+Author: Josh
+Date:   Tue Feb 5 21:59:22 2019 -0500
+
+    add file2 (and secrets by mistake!)
+
+diff --git a/file2 b/file2
+new file mode 100644
+index 0000000..6b46faa
+--- /dev/null
++++ b/file2
+@@ -0,0 +1 @@
++contents2
+
+commit 55a4659cff0e57e7835306677dc2495691cc208f
+Author: Josh
+Date:   Tue Feb 5 21:53:06 2019 -0500
+
+    add file1
+
+diff --git a/file1 b/file1
+new file mode 100644
+index 0000000..a024003
+--- /dev/null
++++ b/file1
+@@ -0,0 +1 @@
++contents1
+#+END_SRC
+
+As you may have noticed, the file2 commit hash has changed! That’s expected,
+because it no longer contains a secret. But, that’s what causes anyone else’s
+clone to have issues. You’ll need to force push this branch, and have everyone
+repair their local copies, or make a fresh clone.
+
+Might wanna change the commit message too:
+
+#+BEGIN_SRC
+$ git filter-branch \
+>       --force \
+>       --msg-filter 'sed "s/add file2 (and secrets by mistake!)/add file2/"' \
+>       -- --all
+#+END_SRC

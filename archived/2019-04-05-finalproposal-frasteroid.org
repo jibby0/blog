@@ -1,0 +1,28 @@
+#+TITLE: finalproposal: Frasteroid
+#+TAGS: hfoss
+
+For our final project, we’ve decided to build a fraction game in the "learn to
+type" style.
+
+I remember playing typing games in 3rd-4th grade. Words (or some combination of
+letters) would appear on incoming objects, and you’d have to type that
+combination to destroy them before they hit you, crossed a line, etc.
+
+The plan is a game in the same style, but the asteroids flying at your ship have
+fraction problems on them. You may need to convert them to mixed numbers, or
+maybe mixed numbers back to fractions. We could incorporate other fractional
+aspects too, such as addition.
+
+Development will be done on GitHub: [[https://github.com/jibby0/IGME582-final]]
+
+Our team is the same as it was for [[/teamproposal-Analysis-of-Krita/][Commarch]]:
+
++ Josh (me)
+  + IRC: jibby
+  + email: jhb2345<at>rit<dot>edu
++ Derek
+  + IRC: GreenGazebo
+  + email: dje4179<at>rit<dot>edu
++ Geo
+  + IRC: pyrophone
+  + email: ga9494<at>rit<dot>edu

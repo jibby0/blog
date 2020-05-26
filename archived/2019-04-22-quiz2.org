@@ -1,0 +1,65 @@
+#+TITLE: quiz2
+#+TAGS: hfoss
+
++ Please select the most appropriate span of time for each of the following [4pts in total]:
+  + The Bayh-Dole Act was passed, which gave rise to university technology transfer offices; the GNU Project and Free Software Foundation were founded; the US acceded to the international Berne Convention on copyrights; software was explicitly covered by US federal copyright law [ 1 pt]
+
+    c) 1980s
+
+  + Creative Commons was founded. [1 pt]
+
+    e) 2000s
+
+  + UNIX was published, Michael Hart started digitizing texts for what became Project Gutenburg, and Bill Gates wrote his “Open Letter to Hobbyists”. [1 pt]
+
+    b) 1970s
+
+  + Linus Torvalds started writing the Linux kernel, the Digital Millenium Copyright Act was passed. [1 pt]
+
+    d) 1990s
+
++ Several elements are combined in different ways to form the various Creative Commons licenses.
+
+  + NC _C_
+  + SA _A_
+  + ND _D_
+  + BY _B_
+    + A) You must convey the same rights “downstream” that were conveyed to you by “upstream”.
+    + B) You must attribute the contributions of the original or upstream creators of the work.
+    + C) You may not use the work for commercial purposes.
+    + D) You may not make changes to the work.
+
++ The presence of which license elements make a license “non-free” in the eyes
+  of the FSF? (give the letters, 1 pt each)
+
+   ND, NC
+
++ Which license element is a copyleft? (give the letter, 1 pt)
+
+   SA
+
++ Name two projects which distribute a body of non-software, free culture data,
+  and briefly name or describe the kind of data. (1 pt XC each)
+
+  + Wikimedia: distributes educational content (everything from Wikipedia to
+    Wikibooks).
+
+  + Freesound: Creative Commons licensed music and audio.
+
++ We discussed several concepts involving rights, restrictions, and licensing.
+  Match the capital letter of the term on the left with lower-case letter of the
+  most appropriate description on the right. (2 pts each)
+
+  + trademark _B_
+  + copyright _C_
+  + patent    _A_
+  + trademark _F_
+  + copyright _D_
+  + patent    _E_
+ 
+    + a) 20 year term            
+    + b) lasts as long as used &amp; defended
+    + c) life of the author plus 70 years
+    + d) arises as soon as a work takes tangible form      
+    + e) precedence is given to the first to file an application
+    + f) protects consumers from confusing one product with another

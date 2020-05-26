@@ -1,0 +1,68 @@
+#+TITLE: blog02/litreview1
+#+TAGS: hfoss
+
+** Bug reporting in ~date +%Y~
+
+I’ve done a handful of troubleshooting, but I’ve never reported a bug. Most of
+my personal “bugs” are issues with a setup I have, or something like that.
+Nearly all of my troubleshooting was solved with a couple searches: others had
+encountered the same problem, gave it a good, hard look, and either found a
+workaround or got the bug fixed.
+
+Tatham’s essay on the matter brought up plenty of good suggestions for
+describing a bug report. Helping developers reproduce and pinpoint the issue is
+key. It made me consider how software has changed since 1999, and how bugfixing
+must adapt as well.
+
+As Moore’s Law dwindles away, software has moved itself to more than one core on
+your processor. Multicore, concurrent, and distributed computing has rapidly
+grown to grasp the benefits of the latest CPUs. Running pieces of code on
+different cores, or even different machines, adds several layers of complexity.
+Event driven programming means events happen at unspecified times. Parallel
+programming means events can collide with one another. Reproducibility of bugs
+has become an ever-growing problem, so when one is encountered, isolation is
+still a key component. The strangest bug I’ve hit: undo-tree
+
+[[https://elpa.gnu.org/packages/undo-tree.html][undo-tree]] is an Emacs extension to visualize the editor’s interesting undo
+system, making edit traversal a bit more intuitive. However, a nasty bug has
+been floating around it for years: unrecognized entry in undo-tree-canary. If
+you hit this, you cannot traverse any further through undo history, meaning
+anything before it is lost!
+
+Various workarounds have been suggested, but YMMV depending on the version and
+environment you’re using. I hit it a handful of times when working on something
+crucial, and prayed I had a backup elsewhere. On the bright side, I checked
+things into Git far more often.
+
+A couple years later, the bug still exists. Around Emacs is a complicated and
+dated ecosystem, with several backwards compatibility attempts as its changed
+over 30+ years. Continuously hitting this bug is partially why I moved to
+Spacemacs: having a more standard, integrated, and tested set of packages atop
+Emacs seems to keep odd errors like this away.
+
+** What can I contribute to?
+
+Looking a bit ahead on the course schedule, I’ve been considering what I’d like
+to do for the bugfix assignment. I have a few small projects I could take a look
+at, in languages and domains I’m comfortable with. However, I’ve been wanting to
+expand into a few other domains I’m interested in: Programming language Theory,
+OS-level development, and decentralization.
+
+Rust would cover the first two. I’ve played around with it a little, but not
+enough to fully understand how the borrow checker works. I love the idea of
+pattern matching (wrapping and unwrapping data based on its structure) in a
+language usable in systems programming. I agree with many of its design
+decisions: a handful are taken (either loosely or exactly) from Haskell, but its
+research origins show as it matures. I’d love to give Rust a try, taking on a
+small bug to get familiar with the ecosystem.
+
+I’m also a firm believer in the power of decentralization: it (in theory)
+destroys the idea of data ownership and control. I’ve been following the Matrix
+project for years, and love the progress they’ve made on moving Synapse to
+Python 3, auditing Dendrite, QOL improvements to Riot, and countless other
+clients popping up as the protocol grows. I’d likely tackle a small bug in
+Synapse, if I could find one: I’m already familiar with Python, but have no clue
+what I’m doing in the decentralization domain (other than a bit of crypto
+experience).
+
+I’ll keep an eye on bugs, and see what comes up in the next week.

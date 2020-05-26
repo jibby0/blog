@@ -1,0 +1,57 @@
+#+TITLE: blog05/bugfix: Sugar’s Physics Activity
+#+TAGS: hfoss
+
+As we started exploring the Sugar learning environment in class, I popped open
+the Physics activity, and got to drawing as many shapes, as fast as possible. It
+was lovely seeing little rectangles and dots flying down the screen and bouncing
+into each other.
+
+But, of course, I was curious what it’d do in edge cases. What happens if you
+try to draw a line by folding two edges together? Draw one line of a polygon,
+and then immediately close it with another line.
+
+The Physics activity froze. Woot. 10 year old me would be so proud.
+
+Now I had something relevant to class to fix, and in Python. This would be a
+good fit.
+
+** A debugging environment
+
+I’ve done enough print debugging to know.. it sucks. Especially with threaded
+applications. So I wanted to launch Physics from a terminal (rather than through
+Sugar’s interface) and run the troublesome code through pdb.
+
+I looked through a bit of Sugar’s wiki, and the source code for Physics.
+However, I wasn’t sure how to launch an activity on my own. I couldn’t simply
+run ~physics.py~ in a Python interpreter. The wiki had a lot of information, but
+some of it was outdated, or not applicable to my Sugar environment, at least.
+Fedora’s SoaS remix has activites at ~/usr/share/sugar/activites~, whereas the
+wiki said they lived in ~/home/olpc/Activities~.
+
+Sugar has their own code to "Sugarize" a Python application. This lets it
+integrate with Sugar’s UI. It looked cool, from what I could see in the code!
+You tell it where buttons should go, and what they do. But at this time, it was
+getting in my way.
+
+I asked on freenode’s ~#sugar~ channel for debugging help. But it seems...
+unlively.
+
+After some digging, I found the ~sugar-activity~ command. I pointed that at
+Physics (in ~/usr/share/sugar/activities/Physics.activity~), and I was good to go!
+
+** The bug
+
+The bug didn’t take too long to track down, once I could step through the code.
+The ~tools_poly.is_line()~ function was not checking for identical start and end
+vertices, when there were not enough total vertices to make a shape. A couple
+lines to check that was all it took: then the correct drawing function handled
+that input without a hitch.
+
+My fix is pretty small: [[https://github.com/sugarlabs/physics/pull/39]]
+
+** Wrapping up
+
+Throughout this process, the hardest part was getting started, for sure. The
+code was clean, but I had no idea how to start debugging, where I should look,
+or what I should be looking for in a launcher. The ~sugar-activity~ application
+worked really well for me, but only found it accidentally.
