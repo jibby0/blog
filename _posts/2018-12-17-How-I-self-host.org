@@ -3,7 +3,7 @@
 
 ** Why self host?
 
-Self hosting applications is important, personally a. Intelligent, talented people have
+Self hosting applications is important to me. Intelligent, talented people have
 written freely available alternatives to giant services like Dropbox, GSuite,
 messaging applications, hypervisors, anything you can think of. These come
 without the restrictions of free accounts: rate limits, storage limits, and
