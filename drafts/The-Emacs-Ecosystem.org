@@ -1,19 +1,27 @@
-#+TITLE: A Simple Static Blog, and the State of the Emacs Ecosystem
-#+TAGS: Emacs
+#+TITLE: One Static Blog later, posts are in Org mode... and written in VSCode.
+#+TAGS: Tech Emacs
 
-On this sunny, long weekend, I decided to play around with static site generation for a new blogging platform.
+On this past sunny, long Memorial Day weekend, I decided to play around with
+static site generation for a new blogging platform.
 
-I have a Wordpress site set up: I don't use it enough to justify the resources.
-Plus, I found its new "blocks" WYSIWYG editor wasn't great with links and code.
+I've used a self-hosted Wordpress site for a while now, but I don't use it
+enough to justify the resources. Plus, I found its new "blocks" WYSIWYG
+editor wasn't great with links and code.
 
-I'd love to use some form of markup, and avoid spending tons of time styling.
+When dealing with links and code in prose, what better choice than a markup
+language? I'd love to use some form of markup, and avoid spending tons of
+time styling.
+
 Those requirements lead me to Jekyll.
 
-** Jekyll and Org
+** Jekyll and Org?
 
-I've been an Emacs user for the better part of 4 years, and still use Org mode
-for a handful of tasks. I love the in-editor code snippet styling, simple LaTeX,
-and ease of exporting to other formats (PDF was quite useful in college).
+I've been an Emacs user for the better part of 4 years, and still use Org
+mode for a handful of tasks. I love the Emacs-native code snippet styling,
+simple LaTeX, and ease of exporting to other formats.
+`org-latex-export-to-pdf` was incredibly useful in college: I know enough
+about LaTeX to write math, but when organizing responses on an assignment,
+I'd prefer to let Org handle it.
 
 I set out with a simple goal: 
   - Write blog posts in org mode.
@@ -57,14 +65,15 @@ with the requested tags + content.
 
 ** The state of Org+Jekyll support, and Org in general
 
-In traditional Emacs fashion, you have your pick of solutions. [[https://orgmode.org/worg/org-blog-wiki.html][Worg lists a
-majority of popular ones.]] Many looked out of date or unmaintained.
+In traditional Emacs fashion, you have your pick of solutions.
+[[https://orgmode.org/worg/org-blog-wiki.html][Worg lists a majority of popular ones.]]
+Many looked out of date or unmaintained, but some looked promising.
 
 Using that list + some searching, I had a handful of projects to try out.
 
-_All of them fell short_, for various reasons, which surprised me & altered my
-view of this ecosystem. I'd like to discuss each solution & the problems I had
-with it, to better understand gaps and issues.
+_All of them fell short for one reason or another_, which surprised me. It
+changed my view of this ecosystem a bit, and I'd like to explore each
+potential solution a bit to identify sources of shortcomings.
 
 *** [[https://github.com/eggcaker/jekyll-org][jekyll-org]]
 
@@ -125,22 +134,26 @@ handful of popular formats. It's used by GitHub and GitLab to render ~.org~
 files, too.
 
 ~org-ruby~ isn't feature complete, which isn't a surprise. The Org manual is
-*[[https://orgmode.org/manual/][big]]*, and it's the closest thing Org has to a specification. This makes the
-_[[https://www.w3.org/2005/10/Process-20051014/tr.html#cfr][two interoperable implementations]]_ rule tough, much less a modest subset such
-as ~org-ruby~.
+*[[https://orgmode.org/manual/][big]]*, and it's the closest thing Org has to
+a specification. This makes the
+_[[https://www.w3.org/2005/10/Process-20051014/tr.html#cfr][two interoperable implementations]]_
+rule tough, much less a modest subset such as ~org-ruby~.
 
-~jekyll-org~ supports syntax highlighting with [[https://github.com/tmm1/pygments.rb][pygments.rb]], a Ruby library.
-(Note: Jekyll no longer uses it under the hood, and instead uses [[http://rouge.jneen.net/][Rouge]]. I'm not
-sure if this will stop working in a newer version of Jekyll.)
+~jekyll-org~ supports syntax highlighting with
+[[https://github.com/tmm1/pygments.rb][pygments.rb]],
+a Ruby library. (Note: Jekyll no longer uses it under the hood, and instead
+uses [[http://rouge.jneen.net/][Rouge]]. I'm not sure if this will stop
+working in a newer version of Jekyll.)
 
 Under the hood, syntax highlighting + exporting to HTML is a tricky problem. You
 need to know something about the target language in order to highlight it
-properly. You can't get away with the [[https://www.masteringemacs.org/article/highlighting-by-word-line-regexp][horrible regexp hack Emacs uses]] to
-accomplish syntax highlighting, when you're only working with HTML+CSS.
+properly. You can't get away with the
+[[https://www.masteringemacs.org/article/highlighting-by-word-line-regexp][horrible regexp hack Emacs uses]]
+to accomplish syntax highlighting, when you're only working with HTML+CSS.
 
 Since I'm essentially using two Org implementations, there will be discrepancies
 between what I see & what's actually rendered. And you can forget about
-[Evaluating Code Blocks](https://orgmode.org/manual/Evaluating-Code-Blocks.html)
+[[https://orgmode.org/manual/Evaluating-Code-Blocks.html][Evaluating Code Blocks]]
 to show code output alongside source. So I can't use any advanced Org features
 with this library.
 
@@ -148,19 +161,43 @@ Not a deal breaker, but certainly disappointing.
 
 *** Using Emacs to export Org as HTML
 
-[[https://orgmode.org/manual/HTML-Export.html][Org mode natively exports to HTML]], and Jekyll can render HTML posts just fine.
-So, export HTML and hand that to Jekyll!
+Jekyll supports a handful of markup formats: one Emacs-compatabile approach
+is to export Org as another markup format, and hand that off to Jekyll.
 
-Off the bat, the approach isn't my favorite. I'll need to remember to run Org
-export commands every time I want to test something, or before I push. The
-latter is mitigated by git hooks, but [[https://www.viget.com/articles/two-ways-to-share-git-hooks-with-your-team/][git hooks are hard to manage]].
+Off the bat, I'm not that fond of this approach.
 
-Org->HTML, doesn't properly do syntax highlighting
-https://orgmode.org/worg/org-tutorials/org-jekyll.html
+Going from ~source->target~ to ~source->inbetween->target~ I can accept,
+since the ~inbetween~ is essentially just an HTML ~body~ that Jekyll will
+drop into a new page.
+
+What I don't like is the placement of the burden: myself. I need to remember
+to export Org as HTML before I commit, or even when I want to test something.
+
+This is partially mitigated by git hooks, but
+[[https://www.viget.com/articles/two-ways-to-share-git-hooks-with-your-team/][git hooks are hard to manage]].
+
+# Org->Html, doesn't properly do syntax highlighting
+# https://orgmode.org/worg/org-tutorials/org-jekyll.html
+
+**** Configuring an Org project
+
+Org supports "publishing" configured projects for situations such as these.
+Worg has a segment on setting up such a project:
+[[https://orgmode.org/worg/org-tutorials/org-jekyll.html#org14785a7]].
+
+/(The ~#org14785a7~ at the end bothers me more than it should. A
+Markdown-rendered page would link that header tag as
+~configuring-org-html-export~, or the like. But, I digress.)/
+
+That example works, and you can change the hardlink to the writer's directory
+if you like. But I hate that there's a hardlink in the first place. This took
+me down my first rabbit hole: how to I make that a dynamic configuration?
+
+***** Digging myself into a ~plist~ hole
+
+# TODO pull the plist example off my other machine
 
 *** Using Emacs to export Org as Markdown
 
-Org->Markdown, doesn't do syntax highlighting, doesn't do tags
-http://www.pwills.com/post/2019/09/24/blogging-in-org.html
-
-Each being broken, outdated, or inconvenient to some degree.
+# Org->Markdown, doesn't do syntax highlighting, doesn't do tags
+# http://www.pwills.com/post/2019/09/24/blogging-in-org.html
