@@ -144,9 +144,18 @@ between what I see & what's actually rendered. And you can forget about
 to show code output alongside source. So I can't use any advanced Org features
 with this library.
 
+Not a deal breaker, but certainly disappointing.
+
 *** Using Emacs to export Org as HTML
 
-Org->Html, doesn't properly do syntax highlighting
+[[https://orgmode.org/manual/HTML-Export.html][Org mode natively exports to HTML]], and Jekyll can render HTML posts just fine.
+So, export HTML and hand that to Jekyll!
+
+Off the bat, the approach isn't my favorite. I'll need to remember to run Org
+export commands every time I want to test something, or before I push. The
+latter is mitigated by git hooks, but [[https://www.viget.com/articles/two-ways-to-share-git-hooks-with-your-team/][git hooks are hard to manage]].
+
+Org->HTML, doesn't properly do syntax highlighting
 https://orgmode.org/worg/org-tutorials/org-jekyll.html
 
 *** Using Emacs to export Org as Markdown
