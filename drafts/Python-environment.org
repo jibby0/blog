@@ -3,7 +3,7 @@
 
 When was the last time you downgraded your Linux system’s Bash?
 
-Never (I hope, oh do I hope) Too many moving pieces rely on "standard" Linux
+Never (I hope, oh do I hope). Too many moving pieces rely on "standard" Linux
 infrastructure like Bash. It’d be silly to make incompatible changes to critical
 infrastructure.
 
