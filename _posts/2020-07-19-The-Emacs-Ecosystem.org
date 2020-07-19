@@ -1,4 +1,4 @@
-#+TITLE: Emacs Has No Interfaces: ELisp & The Emacs Ecosystem
+#+TITLE: Emacs needs Interfaces: ELisp & the Emacs Ecosystem
 #+TAGS: Tech Emacs Rant
 
 I've been an Emacs user for the better part of four years. A simple
@@ -55,9 +55,9 @@ home page. Example:
 title:  "Welcome to Jekyll!"
 date:   2020-05-24 17:33:51 -0400
 categories:
-  - category1 
+  - category1
   - category2
-tags: 
+tags:
   - tag1
   - tag2
 ---
@@ -155,7 +155,7 @@ Not a deal breaker, but certainly disappointing.
 **** Using Emacs to export Org as HTML
 
 Jekyll supports a handful of markup formats: one Emacs-compatible approach
-is to export a ~.org~ as another markup format, and hand that off to Jekyll. 
+is to export a ~.org~ as another markup format, and hand that off to Jekyll.
 
 Off the bat, I'm not that fond of this approach.
 
@@ -209,9 +209,12 @@ just to get my text editor configured properly.
 ** Emacs Lisp: beyond the kitchen sink
 
 I ended up settling for ~jekyll-org~: syntax highlighting sometimes doesn't
-work, but tags work & I don't have to think about publishing. But I was curious
-about the design decisions that left me with this answer, and why this piece of
-the ecosystem is left incomplete.
+work, but tags work & I don't have to think about publishing.
+
+Well, sometimes. I can't put "no" in a title. I don't know why.
+
+But I was curious about the design decisions that left me with this answer,
+and why this piece of the ecosystem is left incomplete.
 
 As the narrative goes: no matter your workflow, you can incorporate it with a
 little Emacs Lisp. But how does a user extend the "most extensible text editor"?
@@ -319,7 +322,7 @@ to work with this language?
 
 Going back to the [[https://orgmode.org/worg/org-tutorials/org-jekyll.html][Org->HTML Worg tutorial]]: one piece covers "publishing"
 configured projects, for when you want to export in a different format. It has
-an [[https://orgmode.org/worg/org-tutorials/org-jekyll.html#org14785a7][example configuration]]. 
+an [[https://orgmode.org/worg/org-tutorials/org-jekyll.html#org14785a7][example configuration]].
 
 The ~#org14785a7~ at the end bothers me more than it should. A Markdown-rendered
 page would link that header tag as ~#configuring-org-html-export~, or the like.
@@ -506,7 +509,7 @@ Me, for writing this instead of writing a better Jekyll integration? Maybe.
 
 I believe this boils down to two connected problems:
 
-- There are no solid interfaces in Emacs. 
+- There are no solid interfaces in Emacs.
 - There is no solid interface for Org.
 
 Org is an implementation, not a contract: nothing from the outside world can
@@ -543,7 +546,7 @@ for a modern editor. Well, an editor trying to be modern, in this case.
 
 For me, after years of bending over backwards, my Emacs broke its spine. I'm
 looking harder at VSCode, as extensions are:
- - Working out of the box, 
+ - Working out of the box,
  - One-click installs
  - Customizable through a UI, or JSON
 
