@@ -118,17 +118,17 @@ AND R5, R6, R3 // Extract desired values
 
 This rendered as:
 
-#+BEGIN_SRC html
-<div class="highlight"><pre><span></span><span class="err">//</span> <span class="nf">A</span> <span class="err">==&gt;</span> <span class="no">B</span>
-<span class="nf">MOV</span> <span class="no">R3</span><span class="p">,</span> <span class="c">#0x2 // R3 Button mask</span>
-<span class="no">MOV</span> <span class="no">R4</span><span class="p">,</span> <span class="c">#0x3 // R4 EOR mask</span>
-<span class="no">AND</span> <span class="no">R5</span><span class="p">,</span> <span class="no">R6</span><span class="p">,</span> <span class="no">R3</span> <span class="err">//</span> <span class="no">Extract</span> <span class="no">desired</span> <span class="no">values</span>
+#+BEGIN_SRC asm
+// A ==> B
+MOV R3, #0x2 // R3 Button mask
+MOV R4, #0x3 // R4 EOR mask
+AND R5, R6, R3 // Extract desired values
 #+END_SRC
 
-Notice how each token is given a ~span~ tag, so it can be identified and
+If you peek at the HTML, you'll notice how each token is given a ~span~ tag, so it can be identified and
 highlighted individually.
 
-...Why does the second ~MOV~ instruction have a different class than the first?
+But... why does the second ~MOV~ instruction have a different class than the first?
 Why is a comment (~//~) given an ~err~ class, but the first "token" in the
 comment (~A~) is a seemingly valid ~nf~?
 
@@ -412,7 +412,7 @@ and that cost is not minimal.
 
 ** Discussions on the Future of Emacs
 
-https://lwn.net/Articles/819452/
+[[https://lwn.net/Articles/819452/]]
 
 From the discussions I've found, I don't expect these problems to be solved
 anytime soon.
@@ -440,6 +440,16 @@ be:
 Learning these, on top of ELisp (which has several different ways to accomplish
 each one) is a nightmare. Kitchen sink meets overcustomization, and no newbie
 wants anything to do with it.
+
+[[https://old.reddit.com/r/emacs/comments/hkzcwu/will_guilemacsremacs_ever_become_a_reality_if_not/]]
+
+Reddit comments get a little closer, but only a few give specific rationale,
+or identify the technical setbacks of ELisp crust. Sure, Rust would help the
+internals move to threading (or async) operations, but ELisp is a whole
+different beast.
+
+Other "rewrites are bad" and "ELisp must continue to work" rationale is
+sprinkled throughout.
 
 *** Attempts to move away from ELisp
 
