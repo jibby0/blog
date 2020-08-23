@@ -1,3 +1,10 @@
 * A simple Jekyll+Org blog
 
 Powered by [[https://github.com/eggcaker/jekyll-org][jekyll-org]]
+
+** Installation
+
+- Install ruby & ruby-dev
+- ~gem install bundler~
+- ~bundle install~
+- ~bundle exec jekyll server~
