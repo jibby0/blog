@@ -3,22 +3,24 @@
 
 When was the last time you downgraded your Linux system’s Bash?
 
-Never (I hope, oh do I hope). Too many moving pieces rely on "standard" Linux
-infrastructure like Bash. It’d be silly to make incompatible changes to critical
-infrastructure.
+Hopefully, the answer is a resounding "Never!". Too many moving pieces rely
+on standard Unix environment infrastructure, such as Bash. It’d be silly to
+make incompatible changes to critical infrastructure.
 
-But, uh. Python is everywhere. Chances are, your favorite distro comes bundled
-with one (or two) Python of some version. And with that omnipotence comes
-reliance: Python has become a fundamental piece of a modern Linux system: little
-scripts are powered by its existence.
+Chances are, your favorite distro comes bundled with one (or two) Python
+installs of some version. And with that omnipotence comes reliance: Python
+has become a fundamental piece of a modern (Linux) system. Little scripts
+here and there (especially in Ubuntu) are powered by its assumed existence.
 
-That begs an interesting question: what does an innocent Python update mean for your system?
+That begs an interesting question: what does an innocent Python update mean
+for your system?
 
-** It's ok, I know what I’m doing
+* It's ok, I know what I’m doing
 
-While the Python team does their best to soften the boat rocking, [[https://docs.python.org/3.8/library/asyncio-exceptions.html#asyncio.CancelledError][minor versions
-can make breaking changes]]. Overwriting a system Python can break assumptions or
-workarounds.
+While the Python team does their best to soften the boat rocking,
+[[https://docs.python.org/3.8/library/asyncio-exceptions.html#asyncio.CancelledError][minor
+versions can make breaking changes]]. Overwriting a system Python can break
+assumptions or workarounds.
 
 What about Python packages? Here’s a fun command for anyone on a Debian variant:
 count the number of non ~python3-*~ packages this returns.
@@ -27,21 +29,21 @@ count the number of non ~python3-*~ packages this returns.
 apt-cache rdepends --no-recommends --no-suggests --no-enhances python3-requests
 #+END_SRC
 
-An unlucky requests upgrade down the line could trample the package manager’s
-hard work, and replace an essential dependency.
+A manual, unlucky ~requests~ upgrade down the line could trample the package
+manager’s hard work, and replace an essential dependency.
 
 In short: if you aren’t careful, customizing a system Python install can mean
 disaster.
 
-** Environment setups: which is best?
+* Environment setups: which is best?
 
-Best practices change quickly: [[/blog11-Python-tooling/][my year old post about its tooling]] is already out
-of date! To keep misinformation to a minimum, let’s look at the current state of
-Python tooling & environments.
+Best practices change quickly: [[/blog11-Python-tooling/][my year old post
+about its tooling]] is already out of date! To keep misinformation to a
+minimum, let’s look at the current state of Python tooling & environments.
 
 What options are available for Python + a few packages? Let’s start with the simplest.
 
-*** The classic “sudo pip install” (spoilers: don’t do it)
+** The classic “sudo pip install” (spoilers: don’t do it)
 
 Let’s add a package to my Ubuntu system via ~pip~. ~requests~ is already installed:
 we can find its location and version.
@@ -171,7 +173,29 @@ In the nitty-gritty of a Python package, a little ~setup.py~ file describes what
 to install. Adding that package means executing a potentially untrustworthy
 ~setup.py~: don’t do that with root access.
 
-/As a rule of thumb: Don’t touch your system’s Python install/. But can you use it
-without modifying it?
 
 https://leemendelowitz.github.io/blog/how-does-python-find-packages.html
+
+** The virtualenv
+
+/As a rule of thumb: Don’t add or overwrite things on your system’s Python install/. But can you use it
+without modifying it?
+
+In the Python world, a /virtualenv/ (shortened as /venv/) is a separated
+environment overlaying a Python install. Generally, venvs are created on a
+per-project basis, and specific packages/versions for a project are installed
+into the venv.
+
+Say you have two applications running on your machine, each using a different
+version of ~requests~. If both those used the host Python install, there's no
+way to install 2 versions of ~requests~ in the same environment. However, if
+each project uses a venv with its respective version of ~requests~, they can
+share the same base Python installation without any issues.
+
+TODO creating a venv
+
+TODO pip freeze, and never apply this to your Python install
+
+TODO how pip freeze won't include ~apt~ installed packages
+
+TODO no dependency pinning for pip freeze
