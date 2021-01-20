@@ -39,6 +39,6 @@ gem 'jekyll-gist'
 gem 'jemoji'
 
 gem 'minimal-mistakes-jekyll'
-gem 'pygments.rb'
+gem 'pygments.rb', '< 2.0.0'
 
 #gem "rouge", "~> 3.19"
