@@ -1,0 +1,38 @@
+#+TITLE: Enterprise Systems Architecting vs Self Hosting
+#+TAGS: Tech
+
+During this extended quarantine, I've set up a hyperconverged Ceph + Docker Swarm cluster, with Traefik reverse-proxying services. This replaces the self-hosting setup I wrote about a while ago, focusing on resilancy and minimal continued maintenance.
+
+# My old setup
+
+[[/How-I-self-host/][The old setup]] ran docker-compose on Debian with ZFS, with Proxmox on top for one-off VMs. This worked well-enough for a couple years (with some slight modifications), but was very hands-on & performed poorly.
+
+- Everything existed on metal, on one box. Running on metal has its benefits, but the Dell R5500 running this didn't have IPMI, hurting the viability of remote maintenance. Any system updates or networking changes included their share of finger crossing. Many things could go wrong on this single machine.
+- Sharing files was a pain: there was no way to access media & other content, and difficult to share only some of it. Static NGINX sites behind .htaccess files are not ideal.
+- Performance issues: the backing zpool was a RAIDZ2 (ZFS-native RAID 6). Traditional RAID makes it difficult to have both write speed & data resilancy.
+
+I tried to address the maintenance issue by separating containers & data into two separate VMs: a "web-facing" VM and a "NAS" VM. This set the stage for a future hardware NAS, and made remote maintenance less scary, but was still more fragile than I had hoped.
+
+Perforamnce issues got worse with time. During typical guest use, ZFS performance varied depending on how the VM disk was backed (zvol vs qcow2), and how full the zpool was. Writes would slow down to tens or hundreds of kilobytes, seemingly for no reason.
+
+I'm sure ZFS is configured improperly somewhere along the chain, but I don't want to look at thousands of dials, trying to determine which needs turning.
+
+
+# Title here
+
+Having experimented with different setups before, I knew what criteria I wanted from a new solution.
+
+
+Resilancy & availability - how much do you need?
+Kubernetes
+HAProxy
+Docker Swarm
+Docker [Compose]
+
+Backups
+
+Complexity & maintenance
+
+Learning curve, investment cost
+
+Alerting & urgency of alerts
