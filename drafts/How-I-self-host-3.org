@@ -1,26 +1,84 @@
 #+TITLE: Enterprise Systems Architecting vs Self Hosting
 #+TAGS: Tech
 
-During this extended quarantine, I've set up a hyperconverged Ceph + Docker Swarm cluster, with Traefik reverse-proxying services. This replaces the self-hosting setup I wrote about a while ago, focusing on resilancy and minimal continued maintenance.
+Rarely are computing problems as straightforward as "simple, or complex?".
+Adding ~<Thing>~ support to your software application can be as simple as writing
+~class <Thing>~, but maybe you want the forward-thinking ~<Thing>Factory~
+approach, implementing some ~<Thing>FactoryInterface~ even.
+
+When should the "enterprise" solution be skipped in the name of simplicity?
+The answer heavily depends on the domain & use case, but a handful of
+one-offs or shared solutions may benefit from the simpler approach.
+
+My self hosting setups have varied from simple to moderately complex, each
+with pros and cons. Before adding complexity, I wanted to analyze the domain
+& use case: why/why not use k8s for self hosting?
+
+# Downscaling the enterprise for the simple
+
+In the software writing example, "downscaling" just means writing less code,
+or writing 1 class instead of 2-3 classes. Downscaling in the sysadmin world
+is not always so straightforward.
+
+If you don't want to host a full-blown k8s instance, you have minikube, k3s,
+microk8s, etc. While these will leave a smaller footprint & simplify initial
+setup, the interface remains the same. If you want to avoid learning helm
+charts, you can use straight ~kubectl create~ commands, but those are your
+only two options for k8s.
+
+Use Docker Swarm/Compose to avoid
+learning k8s. We can keep going down to straight ~docker~, or another
+containeration solution (lxc, podman), or a completely different
+compartementalization solution (VMs, chroots, systemd-nspawn, jails).
+
+Self hosting can be as complex & reliable as enterprise hosting, but
+certainly doesn't have to be: a static site on 1 bare metal host counts!
+
+After watching my [[/How-I-self-host/][3rd self hosting attempt]] collapse this
+past year, I wanted to find final(TM) for real(C) setup with the reliability
+& low maintenance I was looking for.
+
+During this extended quarantine, I've set up a hyperconverged Ceph + Docker
+Swarm cluster, with Traefik reverse-proxying services. This replaces the
+self-hosting setup I wrote about a while ago, focusing on resilancy and
+minimal continued maintenance.
 
 # My old setup
 
-[[/How-I-self-host/][The old setup]] ran docker-compose on Debian with ZFS, with Proxmox on top for one-off VMs. This worked well-enough for a couple years (with some slight modifications), but was very hands-on & performed poorly.
+[[/How-I-self-host/][The old setup]] ran docker-compose on Debian with ZFS,
+with Proxmox on top for one-off VMs. This worked well-enough for a couple
+years (with some slight modifications), but was very hands-on & performed
+poorly.
 
-- Everything existed on metal, on one box. Running on metal has its benefits, but the Dell R5500 running this didn't have IPMI, hurting the viability of remote maintenance. Any system updates or networking changes included their share of finger crossing. Many things could go wrong on this single machine.
-- Sharing files was a pain: there was no way to access media & other content, and difficult to share only some of it. Static NGINX sites behind .htaccess files are not ideal.
-- Performance issues: the backing zpool was a RAIDZ2 (ZFS-native RAID 6). Traditional RAID makes it difficult to have both write speed & data resilancy.
+- Everything existed on metal, on one box. Running on metal has its benefits,
+  but the Dell R5500 running this didn't have IPMI, hurting the viability of
+  remote maintenance. Any system updates or networking changes included their
+  share of finger crossing. Many things could go wrong on this single machine.
+- Sharing files was a pain: there was no way to access media & other content,
+  and difficult to share only some of it. Static NGINX sites behind .htaccess
+  files are not ideal.
+- Performance issues: the backing zpool was a RAIDZ2 (ZFS-native RAID 6).
+  Traditional RAID makes it difficult to have both write speed & data
+  resilancy.
 
-I tried to address the maintenance issue by separating containers & data into two separate VMs: a "web-facing" VM and a "NAS" VM. This set the stage for a future hardware NAS, and made remote maintenance less scary, but was still more fragile than I had hoped.
+I tried to address the maintenance issue by separating containers & data into
+two separate VMs: a "web-facing" VM and a "NAS" VM. This set the stage for a
+future hardware NAS, and made remote maintenance less scary, but was still
+more fragile than I had hoped.
 
-Perforamnce issues got worse with time. During typical guest use, ZFS performance varied depending on how the VM disk was backed (zvol vs qcow2), and how full the zpool was. Writes would slow down to tens or hundreds of kilobytes, seemingly for no reason.
+Perforamnce issues got worse with time. During typical guest use, ZFS
+performance varied depending on how the VM disk was backed (zvol vs qcow2),
+and how full the zpool was. Writes would slow down to tens or hundreds of
+kilobytes, seemingly for no reason.
 
-I'm sure ZFS is configured improperly somewhere along the chain, but I don't want to look at thousands of dials, trying to determine which needs turning.
+I'm sure ZFS is configured improperly somewhere along the chain, but I don't
+want to look at thousands of dials, trying to determine which needs turning.
 
 
-# Title here
+# Evaluating Hosting Needs
 
-Having experimented with different setups before, I knew what criteria I wanted from a new solution.
+Having experimented with different setups before, I knew what criteria I
+wanted from a new solution.
 
 
 Resilancy & availability - how much do you need?
@@ -31,7 +89,9 @@ Docker [Compose]
 
 Backups
 
-Complexity & maintenance
+Complexity
+
+Alerting, Maintenance need, & maintenance urgency
 
 Learning curve, investment cost
 
