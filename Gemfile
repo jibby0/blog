@@ -29,7 +29,9 @@ end
 gem "wdm", "~> 0.1.1", :install_if => Gem.win_platform?
 
 # Org support
-gem 'jekyll-org', '>= 1.1.0'
+gem 'jekyll-org',
+  github: 'eggcaker/jekyll-org',
+  ref: 'cadd906bbb213551956c366a02586f143708ba37'
 
 # Minimal Mistakes Theme
 gem 'jekyll-include-cache'
@@ -40,5 +42,9 @@ gem 'jemoji'
 
 gem 'minimal-mistakes-jekyll'
 gem 'pygments.rb', '< 2.0.0'
+gem 'jekyll-compress-images'
+
+# Needed for ruby 3.0
+gem "webrick"
 
 #gem "rouge", "~> 3.19"

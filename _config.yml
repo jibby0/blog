@@ -34,7 +34,7 @@ title                    : "Jibby.org"
 title_separator          : "-"
 subtitle                 : "A small slice of Blogosphere"
 name                     : &name "Josh Bicking" # &name is a YAML anchor which can be *referenced later
-description              : &description ".orgs are for blogs"
+description              : &description ".orgs are for blo[r]gs"
 url                      : https://jibby.org # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "jibby0/blog"
@@ -291,6 +291,7 @@ plugins:
   - jekyll-include-cache
   - jekyll-org
   - pygments.rb
+  - jekyll-compress-images
 
 # mimic GitHub Pages with --safe
 whitelist:
@@ -337,3 +338,6 @@ compress_html:
   clippings: all
   ignore:
     envs: development
+
+compress_images:
+  images_path: "assets/images/*.{gif,png,jpg,jpeg,svg}"
