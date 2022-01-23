@@ -77,7 +77,7 @@ however, is you can feel at home in a Vimlike environment, without needing to
 learn Elisp.
 
 If you refuse to use a config you didn’t use yourself, like me, go through the
-[[https://jibby.org/www.gnu.org/s/lispintro/][Elisp Intro]] first. That way, you won’t be completely in dark when struggling to
+[[https://www.gnu.org/s/lispintro/][Elisp Intro]] first. That way, you won’t be completely in dark when struggling to
 understand why snippets of another person’s config won’t work. Speaking from
 experience, it’s not fun.
 
