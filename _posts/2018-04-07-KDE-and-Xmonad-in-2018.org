@@ -1,7 +1,7 @@
 #+TITLE: KDE and Xmonad in 2018
 #+TAGS: Tech "Window managers"
 
-I love tiling window managers: I’ve used i3 for years, and ever since I started
+I love tiling window managers: I've used i3 for years, and ever since I started
 learning Haskell, I was curious about Xmonad. However, during my i3 experience,
 I missed a lot of expected features from a full desktop environment (consistent
 themes, background support, notifications, system trays, etc.)
@@ -12,14 +12,14 @@ GNOME+i3 to Xmonad would swap GNOME with KDE.
 
 A lot has changed over the years for KDE, yet all the information I could find
 on configuring Xmonad and KDE to work together was from the KDE 4 era. While a
-lot of that information was valuable, there’s a few tweaks that make the dynamic
+lot of that information was valuable, there's a few tweaks that make the dynamic
 duo unbeatable.
 
 [[../assets/images/2018-04-07-KDE-and-Xmonad-in-2018/Screenshot_20180407_155649.png]]
 
 ** One monitor and beyond
 
-KDE’s workspace widget for panels is a favorite of mine, and works perfectly
+KDE's workspace widget for panels is a favorite of mine, and works perfectly
 with Xmonad on a single screen if ~ewmh~ is enabled in your Xmonad config.
 
 #+BEGIN_SRC haskell
@@ -36,9 +36,9 @@ main =
 Perfect. For a single display.
 
 When multiple monitors come into play, however, the widget goes a bit wonky.
-XMonad doesn’t have a concept of multi-monitor workspaces (AFAIK), so the KDE
+XMonad doesn't have a concept of multi-monitor workspaces (AFAIK), so the KDE
 widget will show the wrong windows on a display. An applet exists to address
-this, but I couldn’t get it working in KDE 5.
+this, but I couldn't get it working in KDE 5.
 
 My solution, as displayed in the screenshot above: run Xmobar alongside KDE, but
 with the sole purpose of displaying workspace information.
@@ -99,7 +99,7 @@ xmonad kde4Config {
 
 This wipes any keys previously defined, but allows for modification of keys defined in ~kde4Config~.
 
-I use a combination of both: use ~Data.Map~'s ~union~ to combine my keys and overwrite default keys, and then remove any I don’t want.
+I use a combination of both: use ~Data.Map~'s ~union~ to combine my keys and overwrite default keys, and then remove any I don't want.
 	
 #+BEGIN_SRC haskell
 import Data.Map as M

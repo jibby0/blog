@@ -1,4 +1,4 @@
-#+TITLE: blog08/litreview3: NY’s 4th Grade Math, and a Sugar Project
+#+TITLE: blog08/litreview3: NY's 4th Grade Math, and a Sugar Project
 #+TAGS: hfoss
 
 This litreview was [[http://www.nysed.gov/common/nysed/files/programs/curriculum-instruction/nys-next-generation-mathematics-p-12-standards.pdf][New York State Next Generation Mathematics Learning Standards]]
@@ -10,8 +10,8 @@ assisted with a sugar activity.
 ** Geometry
 
 Looking through shape identification and angles, the first thing that came to
-mind was a Physics-like activity. Something that wasn’t a sandbox, but instead
-required a drawn shape to meet certain criteria. I’m not sure how that would
+mind was a Physics-like activity. Something that wasn't a sandbox, but instead
+required a drawn shape to meet certain criteria. I'm not sure how that would
 implement angle measurement or angle calculation, though. That sounds tricky to
 gamify.
 
@@ -24,7 +24,7 @@ I remember seeing a fractions game on display for FOSS@RIT, at the Rochester
 A fraction game sounds fun. Either showing equality between fractions, or
 building up “pieces” of a whole to equal another fraction.
 
-But it’d be hard to top [[http://twinbeard.com/frog-fractions/][Frog Fractions]].
+But it'd be hard to top [[http://twinbeard.com/frog-fractions/][Frog Fractions]].
 
 ** Multiplication
 
@@ -43,4 +43,4 @@ blocks in the way, and so forth.
 
 ** Lots to think about!
 
-This leaves a lot of wiggle room, and a few questions. I’m not sure what I’d like to do, but knowing the target goals and audience is helpful. It’s also nice to have those examples. Maybe playing around a bit more with Sugar, or digging up those old games I enjoyed, will help too.
+This leaves a lot of wiggle room, and a few questions. I'm not sure what I'd like to do, but knowing the target goals and audience is helpful. It's also nice to have those examples. Maybe playing around a bit more with Sugar, or digging up those old games I enjoyed, will help too.

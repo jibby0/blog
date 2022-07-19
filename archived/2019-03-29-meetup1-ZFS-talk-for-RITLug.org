@@ -4,23 +4,23 @@
 Just before spring break, I gave a talk at RITlug on the best filesystem in the
 history of filesystems: ZFS.
 
-While that /might/ be an opinion, it’s certainly cool, and worth talking about!
-There’s a lot ZFS can do, and a reason it’s sweeping server environments.
+While that /might/ be an opinion, it's certainly cool, and worth talking about!
+There's a lot ZFS can do, and a reason it's sweeping server environments.
 
 I covered the history of ZFS, the features it provides, and some example
 commands to get started, and plenty of resources to check out! You can check it
-out on [[https://ritlug.com/talks/2019/03/07/w8-zfs/][RITlug’s website]].
+out on [[https://ritlug.com/talks/2019/03/07/w8-zfs/][RITlug's website]].
 
 ** TLDR
 
 ZFS is a copy-on-write (COW) filesystem: every time it writes data, it writes it
 to a new place, rather than overwriting. The new location for the updated data
 is written, and all is well. While that sounds a bit wasteful, it means old data
-can be saved without any cost: just don’t throw away the old location when you
+can be saved without any cost: just don't throw away the old location when you
 write! ZFS tracks these old copies, called snapshots, and lets you jump back to
 them at a later date, or access any data they hold.
 
-It’s great to take a snapshot (quickly!) before a system upgrade, and roll back
+It's great to take a snapshot (quickly!) before a system upgrade, and roll back
 if anything breaks.
 
 ZFS has many more “modern” features: supporting huge amounts of data, verifying
@@ -31,4 +31,4 @@ others!
 
 I enjoy giving talks. Not only can I (hopefully) help break down a complicated
 subject into bite-sized pieces, but presentation prep teaches me a lot about a
-subject! It’s also a chance to improve my public speaking and social skills. 🙂
+subject! It's also a chance to improve my public speaking and social skills. 🙂

@@ -19,7 +19,7 @@ connections from that port into the containers.
 
 ** The URI problem
 
-Since I was using FreeDNS and didn’t want to pay for dozens of subdomains, I
+Since I was using FreeDNS and didn't want to pay for dozens of subdomains, I
 created my own custom versions of containers that modified the URI of the
 service. Owncloud would listen on ~/owncloud~, and not ~/~. It was a hassle to set
 this up, but it worked for a couple years.
@@ -28,14 +28,14 @@ But, after about a year, this setup became an unmaintainable mess. My custom
 changes would need to be applied to upstream images, which would mean tracking
 the changes I made, reapplying them to new images, and rebuilding.
 
-URIs would have to go. Some services flat out didn’t work with them, and the few
-that did took hours of trial and error with Nginx configurations. That wasn’t a
+URIs would have to go. Some services flat out didn't work with them, and the few
+that did took hours of trial and error with Nginx configurations. That wasn't a
 big deal, since I was using Namecheap domains as well now.
 
 ** The solution: nginx-proxy and docker-compose
 
 While looking for a better solution for container reverse proxying, I stumbled
-across [[https://github.com/nginx-proxy/nginx-proxy][this beautiful Dockerfile]]. Seriously. I can’t overstate how awesome it
+across [[https://github.com/nginx-proxy/nginx-proxy][this beautiful Dockerfile]]. Seriously. I can't overstate how awesome it
 is.
 
 + Finds running, configured containers, and reverse proxies them automatically.
@@ -50,13 +50,13 @@ As I was talking these containers over with a coworker, he had an interesting
 idea: set up an entire server configuration with docker-compose, and use that to
 deploy a series of services, all linked via the ~nginx-proxy~ container.
 
-It may have been done before. I didn’t check around too much. But it sounded
+It may have been done before. I didn't check around too much. But it sounded
 like it was worth a shot.
 
 ** A bit on docker-compose
 
-If you’ve never used docker-compose before, it’s a way to bring a group of
-containers up/down at the same time. It’s most useful for containers that rely
+If you've never used docker-compose before, it's a way to bring a group of
+containers up/down at the same time. It's most useful for containers that rely
 on other containers: if your web app running on an apache container requires a
 postgres database, using docker-compose makes it easy to link the two, and
 control the state of each as a single unit.
@@ -107,11 +107,11 @@ PING postgres (172.18.0.2) 56(84) bytes of data.
 rtt min/avg/max/mdev = 0.041/0.073/0.090/0.021 ms
 #+END_SRC
 
-When you’re done looking at it, run ~docker-compose down~ to take down the apache and postgres containers.
+When you're done looking at it, run ~docker-compose down~ to take down the apache and postgres containers.
 
-The configurations available for docker-compose’s YAML file are all things you
-could do with vanilla docker, and the syntax is usually similar. However, it’s
-easier to track runtime configurations when they’re in a file, and
+The configurations available for docker-compose's YAML file are all things you
+could do with vanilla docker, and the syntax is usually similar. However, it's
+easier to track runtime configurations when they're in a file, and
 docker-compose makes starting/stopping several VMs much simpler
 
 ** My docker-compose.yaml
@@ -130,14 +130,14 @@ allows larger files to be uploaded to Nextcloud.
 
 I originally tried to use scripts in ~docker-entrypoint-initdb.d~ to automatically
 perform database and user creation operations. This would truly allow for a “one
-command deploy”: if I’m starting up these containers for the first time,
+command deploy”: if I'm starting up these containers for the first time,
 containers like WordPress would have their database created for them. Or, if I
 add a new container, I can simply add new create commands for the database and
 the user.
 
 This ended up being more trouble than it was worth. I tried to write it strictly
-in SQL, but wasn’t skilled enough in SQL to get something working (/warning, the
-following doesn’t work/): 
+in SQL, but wasn't skilled enough in SQL to get something working (/warning, the
+following doesn't work/): 
 
 #+BEGIN_SRC bash
 function create_db_if_not_exists() {
@@ -189,7 +189,7 @@ EOSQL
 }
 #+END_SRC
 
-So I took the “forget error handling, just try” approach (/warning, this doesn’t work either/):
+So I took the “forget error handling, just try” approach (/warning, this doesn't work either/):
 	
 #+BEGIN_SRC bash
 function create_db_if_not_exists() {
@@ -215,8 +215,8 @@ EOSQL
 }
 #+END_SRC
 
-Even this had issues sometimes. I haven’t needed to redeploy yet, so this is an
-issue I’ll solve later. In the meantime, on first setup, the database must be
+Even this had issues sometimes. I haven't needed to redeploy yet, so this is an
+issue I'll solve later. In the meantime, on first setup, the database must be
 created manually, using something like this:
 	
 #+BEGIN_SRC
@@ -236,18 +236,18 @@ default is http.
 *** quassel and matrix
 
 These are the outliers when it comes to reverse proxying. The short answer is,
-they can’t be reverse proxied. The long answer is, it’s at least [[https://github.com/matrix-org/synapse#reverse-proxying-the-federation-port][possible with
-matrix]], but I didn’t want to set up any custom DNS records. Including matrix
+they can't be reverse proxied. The long answer is, it's at least [[https://github.com/matrix-org/synapse#reverse-proxying-the-federation-port][possible with
+matrix]], but I didn't want to set up any custom DNS records. Including matrix
 still makes sense, as it relies on postgres. I guess I included quassel because,
-while it doesn’t use postgres or nginx-proxy, I didn’t want a lone outlier. 🙂
+while it doesn't use postgres or nginx-proxy, I didn't want a lone outlier. 🙂
 
 * The aftermath
 
-After running this setup for about a month, I have to say, it’s been working
+After running this setup for about a month, I have to say, it's been working
 really well.
 
 Adding or removing services has been a pinch. I can always see or adjust the
-configuration I’ve applied to a container, without having to sift through shell
+configuration I've applied to a container, without having to sift through shell
 history or ~docker info~ output.
 
 If I need to make changes to a service, I can stop and remove the container with
@@ -258,7 +258,7 @@ it back in the composition.
 If I had to list some shortcomings, they would be with nginx-proxy. Sometimes I
 want to run a service on the server OS itself. A good example would be [[https://github.com/firehol/netdata][netdata]]:
 it makes sense for this to run on the server, as it gives information about the
-server as a whole, the docker service itself, etc. However, I can’t set up
+server as a whole, the docker service itself, etc. However, I can't set up
 nginx-proxy to point a netdata subdomain to a service on the host. In the
-meantime, I have netdata running in a container, with some permissions I’m not
+meantime, I have netdata running in a container, with some permissions I'm not
 thrilled about.

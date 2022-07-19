@@ -7,7 +7,7 @@ Krita handles raster (and recently vector) graphics, and targets digital artists
 in the tools it provides. This program falls under the (large) umbrella of the
 KDE project.
 
-Krita’s source is hosted on the [[https://phabricator.kde.org/source/krita/][KDE Project’s Phabricator]] server.
+Krita's source is hosted on the [[https://phabricator.kde.org/source/krita/][KDE Project's Phabricator]] server.
 
 Our team will consist of:
 

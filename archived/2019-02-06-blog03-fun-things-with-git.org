@@ -4,7 +4,7 @@
 As we were covering Git concepts in class, it reminded me of a mishap I dealt
 with not too long ago: a project I was working with had private keys committed
 to it! Thankfully this was not a public facing project, or a project many people
-were working on. However, those keys required removal from the project’s Git
+were working on. However, those keys required removal from the project's Git
 history. Accomplishing this was an interesting process.
 
 Since Git records all changes made to a project, both the adding and removing of
@@ -13,17 +13,17 @@ GitLab was not happy about keys existing in a commit: anyone who closed the
 project could find them in the revisions!
 
 Solving a mistake like this requires rewriting Git history, sadly. In this case,
-it means removing commits it expects to be there. Git isn’t terribly happy about
+it means removing commits it expects to be there. Git isn't terribly happy about
 that.
 
 If history is changed, anyone currently working on the project must pull in the
-new history. That may be incompatible with commits they’ve made relying on the
+new history. That may be incompatible with commits they've made relying on the
 missing commits. In short, they have to start from scratch, or do some Git
 finagling themselves.
 
 ** An Example
 
-So, what would something like this look like? Let’s say I made a repo with a few
+So, what would something like this look like? Let's say I made a repo with a few
 commits, and one of them included a secret, which I later noticed and removed:
 
 #+BEGIN_SRC
@@ -145,7 +145,7 @@ index 0000000..a024003
 
 ** A simple fix: filtering
 
-There’s a very helpful Git subcommand for situations like this: /index-filter/.
+There's a very helpful Git subcommand for situations like this: /index-filter/.
 This subcommand applies a command to a range of commits. In this case, we want
 to use a command that will remove our secret.
 
@@ -211,9 +211,9 @@ index 0000000..a024003
 +contents1
 #+END_SRC
 
-As you may have noticed, the file2 commit hash has changed! That’s expected,
-because it no longer contains a secret. But, that’s what causes anyone else’s
-clone to have issues. You’ll need to force push this branch, and have everyone
+As you may have noticed, the file2 commit hash has changed! That's expected,
+because it no longer contains a secret. But, that's what causes anyone else's
+clone to have issues. You'll need to force push this branch, and have everyone
 repair their local copies, or make a fresh clone.
 
 Might wanna change the commit message too:

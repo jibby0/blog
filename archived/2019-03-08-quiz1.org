@@ -55,7 +55,7 @@ d) fork
 
 a) repository
 
-+ A separate, but related, repository from which one may fetch or pull changes into one’s own working copy, and to which one possibly has permission to push changes. (1 pt)
++ A separate, but related, repository from which one may fetch or pull changes into one's own working copy, and to which one possibly has permission to push changes. (1 pt)
   + a) repository b) branch c) remote d) fork e) clone
 
 c) remote
@@ -65,7 +65,7 @@ c) remote
 
 e) clone
 
-+ A namespace in which one can track changes to a set of files within a given repository. This term applies both to the action and to the result of the action. Comparisons (‘diffs’ or patches) can be made between different such namespaces. (1 pt)
++ A namespace in which one can track changes to a set of files within a given repository. This term applies both to the action and to the result of the action. Comparisons (‘diffs' or patches) can be made between different such namespaces. (1 pt)
   + a) repository b) branch c) remote d) fork e) clone
 
 b) branch
@@ -88,12 +88,12 @@ Looking just at the string of non-space characters to the right of the close-par
 
 a,d,e,g
 
-+ We’ve discussed “the four R’s” as a shorthand for the freedoms attached to
++ We've discussed “the four R's” as a shorthand for the freedoms attached to
   software for it to be considered “free” or “open source”.
   + List or describe each. (eg, if you can remember the “r” word you can just
     give that. If you cannot remember the term, but can describe the freedom
     involved, that also counts).
-  + Various “r” words are roughly synonymous for some of the freedoms, but we’re
+  + Various “r” words are roughly synonymous for some of the freedoms, but we're
     counting freedoms here, not synonyms so if you give two (or more) terms for
     the same freedom, it only counts once. For the purposes of this quiz,
     “remix” does not count as describing any of them. (2 pt each)

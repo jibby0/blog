@@ -1,7 +1,7 @@
 #+TITLE: blog06: Ansible!
 #+TAGS: hfoss
 
-This past week was mostly be playing around with Ansible. I’ve been tasked with
+This past week was mostly be playing around with Ansible. I've been tasked with
 orchestrating new hardware, and tinkering with database values to squeeze out
 speed.
 
@@ -11,14 +11,14 @@ balance between templating and shell scripting.
 
 My first thought after looking into Ansible: /why not just use shell scripts,
 and tons of ssh?/ The more I thought about it, it becomes a problem of scale and
-maintenance. Instead of shell scripts, Ansible tasks and plugins aren’t ad-hoc,
-and they aren’t maintained by me. 🙂 Having a way to run a series of commands,
-set values, etc., that’s backed by Red Hat devs, means I have more trust in what
-I’m writing, and trust in the results.
+maintenance. Instead of shell scripts, Ansible tasks and plugins aren't ad-hoc,
+and they aren't maintained by me. 🙂 Having a way to run a series of commands,
+set values, etc., that's backed by Red Hat devs, means I have more trust in what
+I'm writing, and trust in the results.
 
 ** Terminology
 
-There’s a few terms to learn as you get started. But they’re pretty simple.
+There's a few terms to learn as you get started. But they're pretty simple.
 
 + *task*: An action to perform. Install a package, delete a line from a file,
   start a service, et al.
@@ -29,7 +29,7 @@ There’s a few terms to learn as you get started. But they’re pretty simple.
 
 ** Hosts: the target machines
 
-Hosts are listed in Ansible’s ~hosts~ file, typically at ~/etc/ansible/hosts~. This
+Hosts are listed in Ansible's ~hosts~ file, typically at ~/etc/ansible/hosts~. This
 is a list of hostnames or IP addresses, placed in groups.
 
 #+BEGIN_SRC
@@ -50,13 +50,13 @@ against the databases group of hosts, and not the webservers group.
 ** A simple role
 
 Roles go in the ~roles~ folder, under ~/etc/ansible/roles~. For an example role
-called ~test~, we’ll make a folder in roles called ~test~. Any tasks that ~test~
+called ~test~, we'll make a folder in roles called ~test~. Any tasks that ~test~
 performs will be put in a ~tasks~ folder under test.
 
 Whew! Ok. So, at last, we can start a YAML file, at
 ~/etc/ansible/roles/test/tasks/main.yml~.
 
-I’m running Debian on my ~webserver~ group, and want to make sure Emacs is
+I'm running Debian on my ~webserver~ group, and want to make sure Emacs is
 installed, for all my editing needs. Therefore, my test tasks will only consist
 of one task:
 
@@ -70,7 +70,7 @@ of one task:
 #+END_SRC
 
 Our tasks list has a single entry. Each entry is named with the ~name~ tag, and
-the task’s module is included as the other tag. In this case, we’re using ~apt~ to
+the task's module is included as the other tag. In this case, we're using ~apt~ to
 install the ~emacs~ package. After this task, the state of the package should be
 ~present~. 
 
@@ -96,8 +96,8 @@ into hosts are available with ~ansible-playbook –help~.
 
 ** Ad-hoc commands
 
-Another fun Ansible tidbit is informal commands. These aren’t supposed to be run
-regularly, like playbooks, but they’re useful for learning about your
+Another fun Ansible tidbit is informal commands. These aren't supposed to be run
+regularly, like playbooks, but they're useful for learning about your
 environment.
 
 These are run with the ~ansible~ command. For example, to ensure all Ansible
@@ -106,9 +106,9 @@ with a ~pong~, if all is well.
 
 ** Wrapping up
 
-I’ve probably put half a dozen hours into Ansible now, and already have my
+I've probably put half a dozen hours into Ansible now, and already have my
 database servers created and configured automatically. This involved exploring
-Ansible’s template module, some repository adding, and GPG key accepting. But
+Ansible's template module, some repository adding, and GPG key accepting. But
 all in all, not too bad! My nodes install and configure themselves, then join
 the DB cluster, as soon as I point Ansible at them.
 
