@@ -5,6 +5,9 @@ tags: Tech
 
 Ice-cold take: Kubernetes wasn't made for a homelab.
 
+"we have k8s at home"
+k8s at home: https://github.com/k8s-at-home/charts/issues/1761
+
 # Why go through all the hassle?
 
 In a software ecosystem sponsored by tech giants, what priority is given to *scaling
