@@ -1,0 +1,12 @@
+The easiest way to use Youtube on Android is through Firefox mobile.
+
+These open APIs (and such) allow different methods of access, making a more convenient user experience.
+- Browsers were made for playing/viewing convenience.
+
+There's a reason you can't embed HBO Max in a discord message.
+
+Those same APIs are what enable youtube-dl.
+
+Would something like Youtube ever be locked down?
+
+Locking down YT to proprietary access would mean hell for the integrations that spread Youtube videos (Discord, WhatsApp, FB Messenger)
