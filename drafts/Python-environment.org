@@ -1,10 +1,10 @@
 #+TITLE: In search of a good Python environment
 #+TAGS: Tech Python
 
-When was the last time you downgraded your Linux system’s Bash?
+When was the last time you downgraded your Linux system's Bash?
 
 Hopefully, the answer is a resounding "Never!". Too many moving pieces rely
-on standard Unix environment infrastructure, such as Bash. It’d be silly to
+on standard Unix environment infrastructure, such as Bash. It'd be silly to
 make incompatible changes to critical infrastructure.
 
 Chances are, your favorite distro comes bundled with one (or two) Python
@@ -15,14 +15,14 @@ here and there (especially in Ubuntu) are powered by its assumed existence.
 That begs an interesting question: what does an innocent Python update mean
 for your system?
 
-* It's ok, I know what I’m doing
+* It's ok, I know what I'm doing
 
 While the Python team does their best to soften the boat rocking,
 [[https://docs.python.org/3.8/library/asyncio-exceptions.html#asyncio.CancelledError][minor
 versions can make breaking changes]]. Overwriting a system Python can break
 assumptions or workarounds.
 
-What about Python packages? Here’s a fun command for anyone on a Debian variant:
+What about Python packages? Here's a fun command for anyone on a Debian variant:
 count the number of non ~python3-*~ packages this returns.
 
 #+BEGIN_SRC bash
@@ -30,22 +30,22 @@ apt-cache rdepends --no-recommends --no-suggests --no-enhances python3-requests
 #+END_SRC
 
 A manual, unlucky ~requests~ upgrade down the line could trample the package
-manager’s hard work, and replace an essential dependency.
+manager's hard work, and replace an essential dependency.
 
-In short: if you aren’t careful, customizing a system Python install can mean
+In short: if you aren't careful, customizing a system Python install can mean
 disaster.
 
 * Environment setups: which is best?
 
 Best practices change quickly: [[/blog11-Python-tooling/][my year old post
 about its tooling]] is already out of date! To keep misinformation to a
-minimum, let’s look at the current state of Python tooling & environments.
+minimum, let's look at the current state of Python tooling & environments.
 
-What options are available for Python + a few packages? Let’s start with the simplest.
+What options are available for Python + a few packages? Let's start with the simplest.
 
-** The classic “sudo pip install” (spoilers: don’t do it)
+** The classic “sudo pip install” (spoilers: don't do it)
 
-Let’s add a package to my Ubuntu system via ~pip~. ~requests~ is already installed:
+Let's add a package to my Ubuntu system via ~pip~. ~requests~ is already installed:
 we can find its location and version.
 
 #+BEGIN_SRC bash
@@ -64,7 +64,7 @@ requests_unixsocket-0.1.5.egg-info
 $
 #+END_SRC bash
 
-2.18.4 is a bit old. Let’s upgrade to 2.23.0.
+2.18.4 is a bit old. Let's upgrade to 2.23.0.
 
 #+BEGIN_SRC bash
 $ sudo pip3 install requests==2.23.0
@@ -89,13 +89,13 @@ $ ls /usr/local/lib/python3.6/dist-packages | grep requests
 #+END_SRC bash
 
 That “Not uninstalling requests” line is important: ~pip~ used a separate folder,
-instead of overwriting the system’s ~requests~. This security is what keeps a ~sudo
-pip uninstall requests~ from touching something it shouldn’t.
+instead of overwriting the system's ~requests~. This security is what keeps a ~sudo
+pip uninstall requests~ from touching something it shouldn't.
 
 Smart, right? Yes, but not without consequences. What does that mean for the
 rest of the system?
 
-Let’s look for a system utility something that uses ~requests~:
+Let's look for a system utility something that uses ~requests~:
 
 #+BEGIN_SRC bash
 $ find /usr -regex ".*.py" -exec grep "import requests" {} \+
@@ -122,7 +122,7 @@ $ find /usr -regex ".*.py" -exec grep "import requests" {} \+
 /usr/local/lib/python3.6/dist-packages/requests/status_codes.py:    >>> import requests
 #+END_SRC bash
 
-~ssh_import_id~ is a little Ubuntu tool for adding keyfiles. Which ~requests~ does it use? Let’s edit the beginning of ~/usr/bin/ssh-import-id~ to read:
+~ssh_import_id~ is a little Ubuntu tool for adding keyfiles. Which ~requests~ does it use? Let's edit the beginning of ~/usr/bin/ssh-import-id~ to read:
 
 #+BEGIN_SRC python
 import argparse
@@ -132,7 +132,7 @@ from ssh_import_id import *
 print(requests.__file__)
 #+END_SRC python
 
-And we’ll find out:
+And we'll find out:
 
 #+BEGIN_SRC bash
 $ ssh-import-id --help
@@ -153,8 +153,8 @@ optional arguments:
                         Append to the http user agent string
 #+END_SRC
 
-That’s the requests in ~/usr/local/lib~, our new version. The result is the same
-if we’re root. Concerning.
+That's the requests in ~/usr/local/lib~, our new version. The result is the same
+if we're root. Concerning.
 
 Just to be safe, I modified a Python-using systemd service (cloud-init) to
 verify the same thing: at service startup, the new ~requests~ sneaks in.
@@ -171,14 +171,14 @@ priority.
 
 In the nitty-gritty of a Python package, a little ~setup.py~ file describes what
 to install. Adding that package means executing a potentially untrustworthy
-~setup.py~: don’t do that with root access.
+~setup.py~: don't do that with root access.
 
 
 https://leemendelowitz.github.io/blog/how-does-python-find-packages.html
 
 ** The virtualenv
 
-/As a rule of thumb: Don’t add or overwrite things on your system’s Python install/. But can you use it
+/As a rule of thumb: Don't add or overwrite things on your system's Python install/. But can you use it
 without modifying it?
 
 In the Python world, a /virtualenv/ (shortened as /venv/) is a separated

@@ -20,12 +20,12 @@ earth, hopefully the other 40% could manage.
 
 ** Patch submission process
 
-The process for creating and submitting a patch was documented, but I couldn’t
+The process for creating and submitting a patch was documented, but I couldn't
 find any information on who exactly could approve them. I think anyone with the
 “dev” status can, which you achieve after 3 patches.
 
-Still, not having a public, formal process, isn’t the greatest. Or maybe I just
-can’t find it.
+Still, not having a public, formal process, isn't the greatest. Or maybe I just
+can't find it.
 
 ** Callaway Coefficient of Fail
 
@@ -35,14 +35,14 @@ features, such as supporting both bitmap and vector images. It makes sense that
 the repo would be large, compressed or uncompressed. I believe this is a factor
 that should be either removed entirely, or at least updated to modern standards.
 
-Krita uses CMake: it lost points for not using GNU Make. However, CMake works a lot better with C++ projects, and writing configs is much less of a pain than writing Makefiles. Since it’s open source and a popular standard, I see no problem with using an alternative build tool.
+Krita uses CMake: it lost points for not using GNU Make. However, CMake works a lot better with C++ projects, and writing configs is much less of a pain than writing Makefiles. Since it's open source and a popular standard, I see no problem with using an alternative build tool.
 
 ** Other than that... great!
 
-There were only a few outstanding issues with Krita’s development process, and
-none of them seemed detrimental. I’ve thought about contributing to the KDE
+There were only a few outstanding issues with Krita's development process, and
+none of them seemed detrimental. I've thought about contributing to the KDE
 project: mostly their desktop environment, as I use it daily. The modularity is
 wonderful, and I would love to see it improve.
 
-Since nearly all KDE projects follow a similar development flow, it’s definitely
+Since nearly all KDE projects follow a similar development flow, it's definitely
 pushed me in a positive direction.

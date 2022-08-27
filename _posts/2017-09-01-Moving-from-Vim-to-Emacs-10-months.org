@@ -1,8 +1,8 @@
-#+TITLE: Moving from Vim to Emacs: 10 months later, here’s what I’ve learned
+#+TITLE: Moving from Vim to Emacs: 10 months later, here's what I've learned
 #+TAGS: Tech Emacs
 
 
-I started exploring Emacs around [[https://jossh.me/gogs/jhb2345/dotfiles/commit/fc8ef310fcf6597ebb99f4c088204a4374a6d9fc][10 months ago]], mostly using [[https://blog.aaronbieber.com/2015/05/24/from-vim-to-emacs-in-fourteen-days.html][Aaron Bieber’s
+I started exploring Emacs around [[https://jossh.me/gogs/jhb2345/dotfiles/commit/fc8ef310fcf6597ebb99f4c088204a4374a6d9fc][10 months ago]], mostly using [[https://blog.aaronbieber.com/2015/05/24/from-vim-to-emacs-in-fourteen-days.html][Aaron Bieber's
 posts]] on the subject to get started. I went into the transition with high hopes:
 the incredible support and extensibility of Emacs had me thinking it was simply
 a superset of Vim. I could do everything I do in Vim in Emacs, and more.
@@ -19,14 +19,14 @@ Cool!
 For other features, after a couple hours of struggling to make it _exactly_ like
 it is in Vim, I gave up and used it the Emacs way. Usually, this took a little
 while to get used to, but I rarely found myself missing the way it was done in
-Vim. So it wasn’t worth my time to strive for perfect Vim-like configuration.
+Vim. So it wasn't worth my time to strive for perfect Vim-like configuration.
 
 ** Too much extensibility? At first, maybe
 
-I don’t see this as a fault of Emacs or its plugins. They were built with
+I don't see this as a fault of Emacs or its plugins. They were built with
 customization and extension in mind, so it makes sense that more than enough
 configuration options would be available. And many plugins were nice enough to
-include their own defaults: you’re welcome to read through all of
+include their own defaults: you're welcome to read through all of
 ~auto-complete~'s [[https://github.com/auto-complete/auto-complete/blob/master/doc/manual.md][User Manual]], or you can add ~(ac-config-default)~ to your
 ~.emacs~ or ~init.el~ file. Done and done. But not necessarily done the way you
 like.
@@ -37,8 +37,8 @@ like.
 + Ctrl-Enter to expand on options
 + Etc.
 
-There’s no doubt in my mind: implementing exactly what’s available in Vim is
-doable. It’s probably even elegantly doable. But I certainly couldn’t do it: not
+There's no doubt in my mind: implementing exactly what's available in Vim is
+doable. It's probably even elegantly doable. But I certainly couldn't do it: not
 as a newcomer.
 
 I was trying to familiarize myself with both Emacs and Lisp. Modes, maps, faces,
@@ -54,18 +54,18 @@ Emacs way. The results were better than expected.
 
 I eventually stopped struggling to make every plugin work with ~evil-mode~, or
 work the way it did in Vim. It was a bit unusual to be using ~C-n~ and ~C-p~ for
-up and down sometimes, but after a while, I didn’t mind it.
+up and down sometimes, but after a while, I didn't mind it.
 
 Eventually, it became second nature to use those few Emacs bindings when I
-wasn’t editing. Then something occurred to me.
+wasn't editing. Then something occurred to me.
 
 /I was using Vim binds for editing, and Emacs for everything else./
 
 All the complicated chords completing complicated tasks made sense, because they
-weren’t editing. So why mesh them with my editing tools in Evil? I had several
+weren't editing. So why mesh them with my editing tools in Evil? I had several
 plugins, all feature-rich and heavily customizable. They came, out of the box
 with sane Emacs defaults: defaults which, after working with those little pieces
-of Emacs where I couldn’t use Evil, made perfect sense.
+of Emacs where I couldn't use Evil, made perfect sense.
 
 ** Where to start with Emacs?
 
@@ -76,15 +76,15 @@ key, but often still need to press 2-3 keys to perform an action. Even better,
 however, is you can feel at home in a Vimlike environment, without needing to
 learn Elisp.
 
-If you refuse to use a config you didn’t use yourself, like me, go through the
-[[https://jibby.org/www.gnu.org/s/lispintro/][Elisp Intro]] first. That way, you won’t be completely in dark when struggling to
-understand why snippets of another person’s config won’t work. Speaking from
-experience, it’s not fun.
+If you refuse to use a config you didn't use yourself, like me, go through the
+[[https://www.gnu.org/s/lispintro/][Elisp Intro]] first. That way, you won't be completely in dark when struggling to
+understand why snippets of another person's config won't work. Speaking from
+experience, it's not fun.
 
-This setup, so far, works for me. It’s strange, but having an “editor mode” and
+This setup, so far, works for me. It's strange, but having an “editor mode” and
 a “everything else mode” fits really well with my workflow. As a bonus, things
-usually work out of the box, too. Sometimes I’ll stray from it if I can find a
-~evil-X~ plugin for package ~X~, but normally, I don’t mind whatever bindings
+usually work out of the box, too. Sometimes I'll stray from it if I can find a
+~evil-X~ plugin for package ~X~, but normally, I don't mind whatever bindings
 come out of the box.
 
 Things working as other things are never perfect, and Emacs is far from perfect.
