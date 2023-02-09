@@ -1,73 +1,45 @@
 ---
-title: 'Enterprise Self Hosting'
+title: 'Enterprise Systems Architecting & Self Hosting'
 tags: Tech
 ---
 
-Ice-cold take: Kubernetes wasn't made for a homelab.
+# Simple, or complex?
 
-"we have k8s at home"
-k8s at home: https://github.com/k8s-at-home/charts/issues/1761
+Rarely are computing problems so straightforward. Complex solutions can be
+intentional & well designed, specifically designed for a priority. Be generic,
+resilient, performant, extensible, etc.
 
-# Why go through all the hassle?
+In the code world, adding `<Thing>` support to your application
+can be as simple as a `def <Thing>`. Maybe you'll store state or connection
+objects & go with, `class <Thing>`, or the forward-thinking `<Thing>Factory`
+pattern, implementing some `<Thing>FactoryInterface` even.
 
-In a software ecosystem sponsored by tech giants, what priority is given to *scaling
-down*?
+So many options: which to choose? When should "enterprise" solutions be favored
+over simplicity?
 
-I don't mean `kubectl scale ... --replicas=1`, but scaling down complexity to match simple setups, or maintaining simple setups as a first-class citizen.
-
-For a reliable, (mostly) hands-off garage setup, I don't need load balancing,
-autoscaling, AZs, or any "real business" concept of uptime. I need basic
-failover & easy management.
-
-It's easy to nudge these use cases towards a less enterprise-specific tool.
-
-I tried Docker Swarm. It works for now, but it wouldn't be wise long term.
-While there isn't an official death certificate, updates from the Docker team
-have been sparse. Improved features in other OCI-compliant container runtimes,
-such as GPU passthrough, are
-[unsupported(?) in Swarm](https://github.com/moby/swarmkit/issues/1244).
-
-
-
-Rarely are computing problems as straightforward as "simple, or complex?".
-Generally, a complex solution is one with extra engineering time put into it,
-designed to cover more ground in a specific domain (be generic, be resilient,
-allow easier expansion, etc.)
-
-In the Software Engineering world, adding `<Thing>` support to your
-application can be as simple as writing `class <Thing>`, but maybe you want
-a forward-thinking `Abstract<Thing>` for clients to implement, or a full-blown
-`<Thing>Factory` approach, implementing some `<Thing>FactoryInterface` even.
-
-How do you know which to choose? When should the "enterprise" solution be
-skipped in the name of simplicity?
-
-The answer heavily depends on the use case, but a handful of one-offs or
-shared solutions may benefit from the simpler approach. Generally, you'll
-point to predicted growth, domain information, & other system factors before
-deciding which pattern fits best.
+Answers vary per-case, but one-offs usually benefit from the simpler approach.
+Generally, you'll point to predicted growth, domain information, & other system
+factors before deciding which pattern fits best.
 
 # Downscaling the enterprise for the simple
-
-In the software writing example, "downscaling" just means writing less code,
-or writing 1 class instead of 2-3 classes. Pretty easy! All the same tools
-are available (libraries, builtin language constructs, etc.), just less of
-them are used, generally.
 
 After a handful of failed homelab setups, I wanted to apply the same
 complexity analysis to the sysadmin world, and take a good look at my use
 case. Before picking a cool hosting technology to jump to, what did it offer?
 More importantly, what does it cost me?
 
-Downscaling in the sysadmin world is not always so straightforward. If you're
-looking to avoid the complexity of a full-blown k8s instance, but still want
-the advantages k8s offers, there's options! ~minikube~, ~k3s~, and ~microk8s~
-come to mind. Pick one of those, and you're on your way to HA setups &
-self-healing, right?
+In the code example, "downscaling" just means writing less code, or writing 1
+class instead of 2-3 classes. Pretty easy! All the libraries, language
+built-ins, & other tools are still available.
+
+Downscaling in the sysadmin world is not so straightforward. If you're sold on
+the advantages of Kubernetes, but looking to avoid the complexity of a full
+instance, you may try `minikube`, `k3s`, or `microk8s`. Pick one of those, &
+you're on the path to self-healing & HA setups!
 
 While these will leave a smaller footprint & simplify initial setup, the
-interface remains the same. And the interface has a steep learning curve:
-there's so many terms and concepts to learn.
+Kubernetes API remains the same. This interface has a steep learning curve:
+there's no shortage of terms and concepts to learn.
 
 Separate from the cost of deployment is the cost of understanding the interface.
 If you want to avoid learning helm charts, you can use straight ~kubectl create~
@@ -76,13 +48,23 @@ commands, but many other options exist for k8s.
 This is also something a cloud provider likely won't help with: sure, they
 provide k8s as a service, but you won't escape understanding the interface!
 
+## Peel off a layer!
+
+Okay, so container orchestrators are complicated, duh. Let's move closer to containers.
+
 A reasonable "step down" from k8s is Docker Swarm, or Compose: it offers
 service replicas & multi-node setups, without the rich storage capabilities
-or HA promises. However, those interfaces are completely different! We use
-different tools to create nodes, check on deployment status, debug deploys,
-etc. Soon, they won't even share the same underlying technology:
-[k8s is moving away from docker as a container provider](https://kubernetes.io/blog/2020/12/02/dont-panic-kubernetes-and-docker/)!
+or HA promises.
+
+Those interfaces are completely different! We use different tools to create
+nodes, check on deployment status, debug deploys, etc. Soon, they won't even
+share the same underlying technology: [k8s is moving away from docker as a
+container
+provider](https://kubernetes.io/blog/2020/12/02/dont-panic-kubernetes-and-docker/)!
+
 Some paradigms carry over (base images, containers, health checks)
+
+_Is the complexity of each interface just the tradeoff you have to make for the benefits?_
 
 Every time we pull off a layer, we're looking at a new interface: straight
 ~docker~, or another containeration solution (lxc, podman), or a completely
