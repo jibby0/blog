@@ -41,7 +41,7 @@ gem 'jekyll-gist'
 gem 'jemoji'
 
 gem 'minimal-mistakes-jekyll'
-gem 'pygments.rb', '< 2.0.0'
+gem 'pygments.rb'
 gem 'jekyll-compress-images'
 
 # Needed for ruby 3.0
