@@ -8,7 +8,7 @@
 # For technical reasons, this file is *NOT* reloaded automatically when you use
 # 'bundle exec jekyll serve'. If you change this file, please restart the server process.
 #
-# If you need help with YAML syntax, here are some quick references for you: 
+# If you need help with YAML syntax, here are some quick references for you:
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
 #
@@ -20,8 +20,8 @@
 
 title: "jibby.org"
 email: "me@jibby.org"
-description: >- # this means to ignore newlines until "baseurl:"
-  A small slice of Blogosphere
+description: >-
+  butter blog blog with the butter on it
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://jibby.org" # the base hostname & protocol for your site, e.g. http://example.com
 
