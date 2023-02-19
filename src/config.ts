@@ -3,7 +3,7 @@ import type { SocialObjects } from "./types";
 export const SITE = {
   website: "https://jibby.org/",
   author: "Josh Bicking",
-  desc: "\"i have been given hands and i will use them to make everyone else's lives worse\" - Capn. Wing Ding",
+  desc: '"I have been given hands and I will use them to make everyone else\'s lives worse."- Capn. Wing Ding',
   title: "jibby.org",
   ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
