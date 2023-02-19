@@ -90,7 +90,7 @@ The best way to prepare for expanding later, is to have a working example.
 valuable than "Two node HA setup, to be turned into a three node HA setup
 later". The challenges of multi-node systems are addressed first-hand.
 
-# Starting from the bottom
+# Stacking Complexity
 
 Self hosting can be as complex & reliable as enterprise hosting, but
 certainly doesn't have to be: a static site on 1 bare metal host counts! My
@@ -143,7 +143,7 @@ The setup to beat started with docker-compose on Debian with ZFS, using
 Proxmox on top for one-off VMs. This worked well-enough for a couple years
 (with some slight modifications), but was very hands-on & performed poorly.
 
-## Storage
+### Storage
 
 ZFS performance issues got worse with time. During typical guest use (syncing
 files to Nextcloud, watching something on Jellyfin, etc.), performance varied
@@ -160,19 +160,19 @@ want to look at thousands of dials, trying to determine which needs turning.
 ZFS snapshots make on-system backups a breeze, & ZFS send makes offsiting a
 breeze. Not much to complain about here.
 
-## Reverse proxy
+### Reverse proxy
 
-## Installation process
+### Installation process
 
-## Maintenance
+### Maintenance
 
 This old Dell R5500 didn't have IPMI, hurting the viability of remote
 maintenance. Any system updates or networking changes included their share of
 finger crossing. Many things could go wrong on this single machine.
 
-## Availability
+### Availability
 
-## \# of hosts
+### \# of hosts
 
 - Sharing files was a pain: there was no way to access media & other content,
   and difficult to share only some of it. Static NGINX sites behind .htaccess
