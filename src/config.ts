@@ -39,7 +39,6 @@ export const SOCIALS: SocialObjects = [
     active: true,
   },
   {
-    // TODO better svg
     name: "Signal",
     href: "sms:+18023790867?&body=Add%2520me%2520on%2520Signal%2521",
     linkTitle: `Josh Bicking on Signal`,
@@ -49,7 +48,7 @@ export const SOCIALS: SocialObjects = [
     name: "Mastodon",
     href: "https://mastodon.jibby.org",
     linkTitle: `@jibby on Mastodon`,
-    active: true,
+    active: false,
   },
   {
     name: "Steam",
