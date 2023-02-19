@@ -261,7 +261,9 @@ This field has learned in the past 30 years: people are really bad at writing so
 
 ## Discussions on the Future of Emacs
 
-### <https://lwn.net/Articles/819452/>
+### LWN
+
+https://lwn.net/Articles/819452/
 
 Judging by recent discussions in the space, I don't expect these problems to be solved anytime soon.
 
@@ -284,7 +286,9 @@ And that's just for internals. If you'd like to use external packages, you'll be
 
 Learning these, on top of ELisp (which has several different ways to accomplish each one) is a nightmare. Kitchen sink meets overcustomization, and no newbie wants anything to do with it.
 
-### <https://old.reddit.com/r/emacs/comments/hkzcwu/will_guilemacsremacs_ever_become_a_reality_if_not/>
+### Reddit
+
+https://old.reddit.com/r/emacs/comments/hkzcwu/will_guilemacsremacs_ever_become_a_reality_if_not/
 
 Some Reddit discussion got a little closer, but only a few give specific rationale, or identify the technical setbacks of ELisp crust. Sure, Rust would help the internals move to threading (or async) operations, but ELisp is a whole different beast.
 
