@@ -1,5 +1,0 @@
-/* Black background on all org src code */
-.highlight pre {
-    background-color: #292e34;
-    color: white;
-}

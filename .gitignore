@@ -1,5 +1,8 @@
-_site
-.sass-cache
-.jekyll-cache
-.jekyll-metadata
-vendor
+old-blog/_site
+old-blog/.sass-cache
+old-blog/.jekyll-cache
+old-blog/.jekyll-metadata
+old-blog/vendor
+node_modules
+.astro
+dist
