@@ -4,7 +4,7 @@ pubDatetime: 2019-02-01T00:00:00Z
 title: I'm not on my phone much anymore.
 postSlug: im-not-on-my-phone-much-anymore
 featured: false
-draft: false
+draft: true
 tags:
   - life
 description: ""

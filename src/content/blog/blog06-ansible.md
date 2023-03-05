@@ -4,7 +4,7 @@ pubDatetime: 2019-02-26T00:00:00Z
 title: "blog06: Ansible!"
 postSlug: blog06-ansible
 featured: false
-draft: false
+draft: true
 tags:
   - hfoss
 description: ""
@@ -58,7 +58,7 @@ I'm running Debian on my `webserver` group, and want to make sure Emacs is insta
     state: present
 ```
 
-Our tasks list has a single entry. Each entry is named with the `name` tag, and the task's module is included as the other tag. In this case, we're using `apt` to install the `emacs` package. After this task, the state of the package should be `present`. 
+Our tasks list has a single entry. Each entry is named with the `name` tag, and the task's module is included as the other tag. In this case, we're using `apt` to install the `emacs` package. After this task, the state of the package should be `present`.
 
 ## A simple playbook
 

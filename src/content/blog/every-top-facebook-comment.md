@@ -4,7 +4,7 @@ pubDatetime: 2017-07-12T00:00:00Z
 title: Every top Facebook comment I've seen on Net Neutrality articles has been against it. That disappoints me.
 postSlug: every-top-facebook-comment
 featured: false
-draft: false
+draft: true
 tags:
   - politics
   - rant

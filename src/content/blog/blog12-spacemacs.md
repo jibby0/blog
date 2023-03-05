@@ -4,7 +4,7 @@ pubDatetime: 2019-04-15T00:00:00Z
 title: "blog12: Spacemacs"
 postSlug: blog12-spacemacs
 featured: false
-draft: false
+draft: true
 tags:
   - hfoss
   - emacs

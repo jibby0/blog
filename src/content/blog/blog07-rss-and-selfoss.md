@@ -4,7 +4,7 @@ pubDatetime: 2019-03-03T00:00:00Z
 title: "blog07: RSS and selfoss"
 postSlug: blog07-rss-and-selfoss
 featured: false
-draft: false
+draft: true
 tags:
   - hfoss
   - life
@@ -23,7 +23,7 @@ RSS is an interesting technology: most browsers ship with support for it (until 
 
 When there's support for it.
 
-For the life of me, I couldn't find a nice RSS aggregator for Android. Most of them used odd formats (which meant I couldn't read on my laptop too, without some ad-hoc conversion), or were just clunky. 
+For the life of me, I couldn't find a nice RSS aggregator for Android. Most of them used odd formats (which meant I couldn't read on my laptop too, without some ad-hoc conversion), or were just clunky.
 
 ## selfoss: an RSS reader for the modern(?) era
 
@@ -33,14 +33,14 @@ The selling points for me though: a solid web app, and a just as solid Android a
 
 Since both apps were just frontends to the same service, I didn't have to worry about passing files between my phone and my laptop, or anything of that nature.
 
-Getting started was really simple! Check out the [selfoss webpage](https://www.selfoss.aditu.de/), [Github Repo](https://github.com/SSilence/selfoss), or the [Docker image I use](https://hub.docker.com/r/hardware/selfoss). The configuration is easy: create a `config.ini` from the included `default.ini.` Set up a database if you want to (otherwise, it'll use the included sqlite backend), and that's it! Accessing the service through your web browser will prompt for the configured username and password, and you can begin adding RSS feeds. 
+Getting started was really simple! Check out the [selfoss webpage](https://www.selfoss.aditu.de/), [Github Repo](https://github.com/SSilence/selfoss), or the [Docker image I use](https://hub.docker.com/r/hardware/selfoss). The configuration is easy: create a `config.ini` from the included `default.ini.` Set up a database if you want to (otherwise, it'll use the included sqlite backend), and that's it! Accessing the service through your web browser will prompt for the configured username and password, and you can begin adding RSS feeds.
 
 ### A couple gotchas
 
-- *Be sure to set up SSL, especially if you use the Android app.* 
+- *Be sure to set up SSL, especially if you use the Android app.*
   - From the app, as of writing, requests are done a little differently. Instead of saving a cookie on login, the login username and password is sent as URL parameters. By that I mean, it'll send tons of requests in the form of `http://selfoss.example.com/?username=myusername&password=mypassword`. This means *login info will be regularly sent in plain text*. Don't do that.
 
-- *Feeds only update when you tell them to.* 
+- *Feeds only update when you tell them to.*
  - As the selfoss installation section illustrates: Create cronjob for updating feeds and point it to https://yoururl.com/update via wget or curl. You can also execute the cliupdate.php from commandline. The Docker image linked above does this automatically, and is configurable via the CRON_PERIOD envvar.
 
 ## So, uh. Where the feeds at?

@@ -4,7 +4,7 @@ pubDatetime: 2019-09-22T00:00:00Z
 title: "It's FOSS: \"Amid Epstein Controversy, Richard Stallman is Forced to Resign as FSF President\""
 postSlug: its-foss-stallman-removal
 featured: false
-draft: false
+draft: true
 tags:
   - politics
   - tech
