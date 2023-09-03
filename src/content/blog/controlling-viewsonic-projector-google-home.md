@@ -5,7 +5,7 @@ description: ""
 title: "Remotely controlling a ViewSonic PX728-4K's power with Google Home + Home Assistant"
 postSlug: controlling-viewsonic-projector-google-home
 featured: false
-draft: true
+draft: false
 tags:
   - tech
 ---
