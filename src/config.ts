@@ -19,7 +19,12 @@ export const LOGO_IMAGE = {
 };
 
 export const SOCIALS: SocialObjects = [
-  // TODO resume
+  {
+    name: "Resume",
+    href: "/assets/Resume.pdf",
+    linkTitle: `Resume`,
+    active: true,
+  },
   {
     name: "Github",
     href: "https://github.com/jibby0",
