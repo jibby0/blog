@@ -10,7 +10,7 @@ tags:
 description: ""
 ---
 
-I could only find this information was in passing on a [Craft Computing PCIe Passthrough video](https://youtu.be/_hOBAGKLQkI?t=390).
+I could only find this information in passing on a [Craft Computing PCIe Passthrough video](https://youtu.be/_hOBAGKLQkI?t=390). Shoutout!
 
 In short:
 
