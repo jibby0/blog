@@ -1,5 +1,3 @@
-User-agent: Googlebot
-Disallow: /nogooglebot/
+Keep Out
 
-User-agent: *
-Allow: /
+Or enter. I'm a sign, not a cop
