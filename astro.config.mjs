@@ -66,6 +66,10 @@ export default defineConfig({
   },
 
   vite: {
+    // https://github.com/thx/resvg-js/issues/175#issuecomment-1563141488
+    ssr: {
+      external: ['@resvg/resvg-js'],
+    },
     plugins: [tailwindcss()],
   },
 
