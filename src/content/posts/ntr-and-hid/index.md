@@ -16,7 +16,7 @@ The entire “plugin” for NTR is an object module (in the general case, compil
 
 The HID Shared memory starts off at a different place for different applications. Looking at HID dumps from the debugger while pressing no buttons at all, and then pressing A, that spot was `0x10000000` for VC Pokemon Crystal:
 
-![](/assets/ntr-and-hid/crystal-dump-diff.png)
+![](./crystal-dump-diff.png)
 
 (The dump started from `0x0FFFF000`, hence the `0x1000` offset.)
 
